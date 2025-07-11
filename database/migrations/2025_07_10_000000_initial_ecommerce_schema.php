@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('shipping_address_id')->nullable(); // FK thêm sau
             $table->string('phone');
             $table->boolean('is_active')->default(true);
+            $table->rememberToken();
             $table->timestamps();
         });
 
