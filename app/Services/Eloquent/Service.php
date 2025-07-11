@@ -4,7 +4,7 @@ namespace App\Services\Eloquent;
 use App\Repositories\Interfaces\Repository;
 use App\Services\Interfaces\ServiceInterface;
 
-abstract class BaseService implements ServiceInterface 
+abstract class Service implements ServiceInterface 
 {
     protected Repository $repo;
 
