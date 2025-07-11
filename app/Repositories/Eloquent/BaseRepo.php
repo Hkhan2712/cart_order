@@ -4,7 +4,7 @@ namespace App\Repositories\Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Interfaces\Repository;
 
-abstract class BaseRepository implements Repository {
+abstract class BaseRepo implements Repository {
     protected $model;
 
     public function __construct(Model $model)
