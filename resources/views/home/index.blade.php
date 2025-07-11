@@ -24,6 +24,7 @@
         
     />
     <!-- blog section -->
+    <x-blog-section />
     <!-- download app -->
     <x-app-download 
         title="Download AquaTerra App"
