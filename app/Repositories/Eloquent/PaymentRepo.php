@@ -6,8 +6,5 @@ use App\Repositories\Interfaces\PaymentRepoInterface;
 
 class PaymentRepo extends BaseRepo implements PaymentRepoInterface
 {
-    public function __construct(Payment $model)
-    {
-        parent::__construct($model);
-    }
+    protected function model(): string { return Payment::class;}
 }

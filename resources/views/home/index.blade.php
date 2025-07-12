@@ -3,8 +3,12 @@
 @section('title', 'AquaTerra - Homepage')
 
 @section('content')
+    
     @include('home._hero')
-    @include('home._category_carousel')
+    
+    <!-- @include('home._category_carousel') -->     
+    @include('home._category_carousel', ['categories' => $categories])
+
     @include('home._best_selling')
     @include('home._promo_banners')
     <x-product-carousel

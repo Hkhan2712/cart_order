@@ -5,12 +5,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Interfaces\Repository;
 
 abstract class BaseRepo implements Repository {
-    protected $model;
+    protected Model $model;
 
-    public function __construct(Model $model)
+    public function __construct()
     {
-        $this->model = $model;        
+        $this->model = app($this->model());
     }
+
+    abstract protected function model(): string;
     
     public function all() { return $this->model->all(); }
     public function find($id) { return $this->model->find($id); }

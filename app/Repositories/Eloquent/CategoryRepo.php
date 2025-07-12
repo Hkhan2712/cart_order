@@ -2,12 +2,9 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Category;
-use App\Repositories\Interfaces\CartRepoInterface;
+use App\Repositories\Interfaces\CategoryRepoInterface;
 
-class CategoryRepo extends BaseRepo implements CartRepoInterface 
+class CategoryRepo extends BaseRepo implements CategoryRepoInterface 
 {
-    public function __construct(Category $model) 
-    {
-        parent::__construct($model);
-    }
+    protected function model(): string { return Category::class; }
 }

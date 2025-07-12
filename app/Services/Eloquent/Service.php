@@ -1,21 +1,36 @@
-<?php 
+<?php
 namespace App\Services\Eloquent;
 
 use App\Repositories\Interfaces\Repository;
-use App\Services\Interfaces\ServiceInterface;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
-abstract class Service implements ServiceInterface 
+abstract class Service implements \App\Services\Interfaces\ServiceInterface
 {
-    protected Repository $repo;
+    public function __construct(protected Repository $repo) {}
 
-    public function __construct(Repository $repo) 
+    public function all(): Collection
     {
-        $this->repo = $repo;
+        return $this->repo->all();
     }
 
-    public function all()               { return $this->repo->all(); }
-    public function find($id)           { return $this->repo->find($id); }
-    public function create($datas)      { return $this->repo->create($datas); }
-    public function update($id, $datas) { return $this->repo->update($id, $datas); }
-    public function delete($id)         { return $this->repo->delete($id); }
+    public function find($id): ?Model
+    {
+        return $this->repo->find($id);
+    }
+
+    public function create($data): Model
+    {
+        return $this->repo->create($data);
+    }
+
+    public function update($id, $data): ?Model
+    {
+        return $this->repo->update($id, $data);
+    }
+
+    public function delete($id): int
+    {
+        return $this->repo->delete($id);
+    }
 }

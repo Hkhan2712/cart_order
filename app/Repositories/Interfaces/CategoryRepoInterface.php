@@ -1,4 +1,6 @@
 <?php 
 namespace App\Repositories\Interfaces;
 
-interface CategoryRepoInterface extends Repository {}
+interface CategoryRepoInterface extends Repository {
+    
+}

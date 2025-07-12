@@ -34,6 +34,18 @@ use App\Repositories\Interfaces\RoleRepoInterface;
 use App\Repositories\Interfaces\ShippingProviderRepoInterface;
 use App\Repositories\Interfaces\ShippingRepoInterface;
 use App\Repositories\Interfaces\UserRepoInterface;
+use App\Services\Eloquent\CartService;
+use App\Services\Eloquent\CategoryService;
+use App\Services\Eloquent\HomeService;
+use App\Services\Eloquent\OrderService;
+use App\Services\Eloquent\ProductService;
+use App\Services\Eloquent\UserService;
+use App\Services\Interfaces\CartServiceInterface;
+use App\Services\Interfaces\CategoryServiceInterface;
+use App\Services\Interfaces\HomeServiceInterface;
+use App\Services\Interfaces\OrderServiceInterface;
+use App\Services\Interfaces\ProductServiceInterface;
+use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -44,6 +56,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $bindings = [
+            // Repositories
             RoleRepoInterface::class            => RoleRepo::class,
             UserRepoInterface::class            => UserRepo::class,
             ShippingRepoInterface::class        => ShippingRepo::class,
@@ -60,6 +73,14 @@ class AppServiceProvider extends ServiceProvider
             InventoryLogRepoInterface::class    => InventoryRepo::class,
             OrderStatusRepoInterface::class     => OrderStatusRepo::class,
             ShippingProviderRepoInterface::class=> ShippingProviderRepo::class,
+
+            // Services
+            CartServiceInterface::class => CartService::class,
+            CategoryServiceInterface::class => CategoryService::class,
+            HomeServiceInterface::class => HomeService::class,
+            OrderServiceInterface::class => OrderService::class,
+            ProductServiceInterface::class => ProductService::class,
+            UserServiceInterface::class => UserService::class,
         ];
 
         foreach ($bindings as $interface => $implementation) {
