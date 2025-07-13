@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Services\Interfaces\HomeServiceInterface;
-use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
 class HomeController extends Controller
