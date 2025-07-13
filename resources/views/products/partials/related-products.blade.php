@@ -1,4 +1,7 @@
 <div class="mb-5">
-    <h2 class="h5 mb-3">Related Products</h2>
-    @include('components.product-carousel', ['products' => $products])
+    <x-product-carousel
+        id="related-products"
+        title="Related Products"
+        :products="$products"
+    />
 </div>
