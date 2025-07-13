@@ -20,7 +20,7 @@
                     <div class="swiper-wrapper">
                         @foreach($categories as $category)
                             <a href="" class="nav-link swiper-slide text-center">
-                                <img src="{{ asset($category->thumbnail ?? 'images/categories/default.png') }}" class="rounded-circle" alt="{{ $category->name }}">
+                                <img src="{{ $category->thumbnail_url }}" class="rounded-circle" alt="{{ $category->name }}">
                                 <h4 class="fs-6 mt-3 fw-normal category-title">{{ $category->name }}</h4>
                             </a>
                         @endforeach
