@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Eloquent;
 
+use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepoInterface;
 use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -31,4 +32,15 @@ class ProductService extends Service implements ProductServiceInterface
     {
         return $this->repo->latestByCreatedAt($limit);
     }
+
+    public function getBySlugWithDetailsAndReviews(string $slug)
+    {
+        return $this->repo->findBySlugWithDetailsAndReviews($slug);
+    }
+
+    public function getRelatedProducts(Product $product)
+    {
+        return $this->repo->getRelatedProducts($product);
+    }
+
 }

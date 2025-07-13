@@ -18,10 +18,10 @@ class ProductViewController extends Controller {
             'products' => $this->productService->all()
         ]);
     }
-    public function show($slug): View 
+    public function show(string $slug)
     {
-        return view('products.show', [
-            'product' => $this->productService->find('slug', $slug)
-        ]);
+        $product = $this->productService->getBySlugWithDetailsAndReviews($slug);
+        $relatedProducts = $this->productService->getRelatedProducts($product);
+        return view('products.show', compact('product', 'relatedProducts'));
     }
 }

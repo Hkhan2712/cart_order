@@ -55,4 +55,21 @@ class ProductRepo extends BaseRepo implements ProductRepoInterface
         }
         return $query->get();
     }
+
+    public function findBySlugWithDetailsAndReviews(string $slug)
+    {
+        return $this->model
+                    ->with(['detail', 'reviews'])
+                    ->where('slug', $slug)
+                    ->firstOrFail();
+    }
+
+    public function getRelatedProducts(Product $product)
+    {
+        return $this->model
+                    ->where('category_id', $product->category_id)
+                    ->where('id', '!=', $product->id)
+                    ->take(8)
+                    ->get();
+    }
 }
