@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ProductService extends Service implements ProductServiceInterface
 {
-    // thu hẹp kiểu để IDE nhận phương thức đặc thù
     public function __construct(ProductRepoInterface $repo)
     {
         parent::__construct($repo);

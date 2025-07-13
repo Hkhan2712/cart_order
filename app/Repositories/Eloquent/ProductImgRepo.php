@@ -6,8 +6,5 @@ use App\Repositories\Interfaces\ProductImgRepoInterface;
 
 class ProductImgRepo extends BaseRepo implements ProductImgRepoInterface 
 {
-    public function __construct(ProductImage $model)
-    {
-        parent::__construct($model);        
-    }
+    protected function model(): string { return ProductImage::class; }
 }

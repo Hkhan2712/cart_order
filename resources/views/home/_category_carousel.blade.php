@@ -1,4 +1,4 @@
-\<section class="py-5 overflow-hidden">
+<section class="py-5 overflow-hidden">
     <div class="container-lg">
         <div class="row">
             <div class="col-md-12">
@@ -20,7 +20,7 @@
                     <div class="swiper-wrapper">
                         @foreach($categories as $category)
                             <a href="" class="nav-link swiper-slide text-center">
-                                <img src="{{ $category->thumbnail_url }}" class="rounded-circle" alt="{{ $category->name }}">
+                                <img src="{{ $category->thumbnail_url }}" class="rounded-circle" style="max-width: 160px; max-height: 160px" alt="{{ $category->name }}">
                                 <h4 class="fs-6 mt-3 fw-normal category-title">{{ $category->name }}</h4>
                             </a>
                         @endforeach

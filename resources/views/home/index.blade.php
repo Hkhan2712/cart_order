@@ -14,18 +14,18 @@
     <x-product-carousel
         id="featured-products"
         title="Featured Products"
-        
+        :products="$featured"
     />
     <x-newsletter-banner />
     <x-product-carousel
-        id="featured-products"
+        id="popular-products"
         title="Most Popular Products"
-        
+        :products="$popular"  
     />
     <x-product-carousel
-        id="featured-products"
+        id="arrived-products"
         title="Just arrived"
-        
+        :products="$newArrivals"
     />
     <!-- blog section -->
     <x-blog-section />

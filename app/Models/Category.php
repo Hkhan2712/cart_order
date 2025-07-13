@@ -17,7 +17,7 @@ class Category extends Model
 
         return (!empty($this->thumbnail) && File::exists(public_path($path)))
             ? asset($path)
-            : asset('images/categories/default.png');
+            : asset('images/categories/default.jpg');
     }
 }
 

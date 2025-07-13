@@ -113,7 +113,7 @@
         el: ".swiper-pagination",
         clickable: true,
       },
-    });
+    });uu
   }
 
   // input spinner

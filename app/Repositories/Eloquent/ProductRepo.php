@@ -12,6 +12,7 @@ class ProductRepo extends BaseRepo implements ProductRepoInterface
     public function orderBySoldCountDesc($limit = 10)
     {
         return $this->model
+            ->with('images')
             ->withCount('orderItems')
             ->orderByDesc('order_items_count')
             ->take($limit)
@@ -21,6 +22,7 @@ class ProductRepo extends BaseRepo implements ProductRepoInterface
     public function orderByViewDesc($limit = 10)
     {
         return $this->model
+            ->with('images')
             ->orderByDesc('view_count')
             ->take($limit)
             ->get();
@@ -29,11 +31,22 @@ class ProductRepo extends BaseRepo implements ProductRepoInterface
     public function latestByCreatedAt($limit = 10)
     {
         return $this->model
+            ->with('images')
             ->latest('created_at')
             ->take($limit)
             ->get();
     }
- 
+
+    public function getFeaturedProducts($limit = 10): Collection
+    {
+        return $this->model
+            ->with('images')
+            ->withAvg('reviews', 'rating')
+            ->orderByDesc('reviews_avg_rating')
+            ->limit($limit)
+            ->get();
+    }
+    
     public function where(array $conditions, $limit = 10)
     {
         $query = $this->model->where($conditions);
@@ -41,14 +54,5 @@ class ProductRepo extends BaseRepo implements ProductRepoInterface
             $query->take($limit);
         }
         return $query->get();
-    }
-
-    public function getFeaturedProducts($limit = 10): Collection
-    {
-        return $this->model
-            ->withAvg('reviews', 'rating')
-            ->orderByDesc('reviews_avg_rating')
-            ->limit($limit)
-            ->get();
     }
 }

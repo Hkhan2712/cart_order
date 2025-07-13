@@ -1,7 +1,7 @@
 <div class="product-item swiper-slide">
   <figure>
-    <a href="{{ route('product.show', $product->slug) }}" title="{{ $product->name }}">
-      <img src="{{ asset('storage/' . $product->thumbnail) }}" alt="Product Thumbnail" class="tab-image">
+    <a href="" title="{{ $product->name }}">
+      <img src="{{ $product->image_path }}" alt="{{ $product->slug }}" class="tab-image">
     </a>
   </figure>
   <div class="d-flex flex-column text-center">

@@ -23,5 +23,19 @@ class Product extends Model
     public function wishlists() { return $this->hasMany(Wishlist::class); }
 
     public function cartItems() { return $this->hasMany(CartItem::class); }
+
+    public function getImagePathAttribute(): string
+    {
+        $this->loadMissing('images');
+
+        $image = $this->images->firstWhere('is_primary', 1);
+
+        $path = $image ? 'store/' . $image->image_path : 'store/products/default.png';
+        $fullPath = public_path($path);
+
+        return file_exists($fullPath)
+            ? asset($path)
+            : asset('store/products/default.jpg');
+    }
 }
 
