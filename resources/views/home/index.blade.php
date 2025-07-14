@@ -6,26 +6,32 @@
     
     @include('home._hero')
     
-    <!-- @include('home._category_carousel') -->     
-    @include('home._category_carousel', ['categories' => $categories])
+    @include('home._category_carousel', [
+        'categories' => $categories,
+        'link' => route('categories.index')
+    ])
 
     @include('home._best_selling')
     @include('home._promo_banners')
+    
     <x-product-carousel
         id="featured-products"
         title="Featured Products"
         :products="$featured"
+        link="{{route('products.index', ['sort' => 'featured'])}}"
     />
     <x-newsletter-banner />
     <x-product-carousel
         id="popular-products"
         title="Most Popular Products"
-        :products="$popular"  
+        :products="$popular"
+        link="{{route('products.index', ['sort' => 'popular'])}}"  
     />
     <x-product-carousel
         id="arrived-products"
         title="Just arrived"
         :products="$newArrivals"
+        link="{{route('products.index', ['sort' => 'arrived'])}}"
     />
     <!-- blog section -->
     <x-blog-section />

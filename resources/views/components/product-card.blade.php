@@ -1,6 +1,6 @@
 <div class="product-item swiper-slide">
   <figure>
-    <a href="" title="{{ $product->name }}">
+    <a href="products/{{ $product->slug}}" title="{{ $product->name }}">
       <img src="{{ $product->image_path }}" alt="{{ $product->slug }}" class="tab-image">
     </a>
   </figure>
