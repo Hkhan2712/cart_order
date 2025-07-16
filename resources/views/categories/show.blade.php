@@ -1,10 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'AquaTerra - ')
+@section('title', 'AquaTerra - ' . $category->name)
 
 @section('content')
 <div class="py-5 mx-3">
     <h1 class="mb-5 d-flex justify-content-center" style="font-size: 4rem;">{{$category->name}}</h1>
+   @if ($category->banner_url)
+    <img src="{{ $category->banner_url }}" 
+         alt="{{ $category->name }} Banner"
+         class="mb-5 w-100 rounded-4"
+         style="object-fit: cover;">
+    @endif
+
     <div class="row">
         <section class="col-12 col-md-9">
             @include('products.partials.product-grid', ['products' => $products])

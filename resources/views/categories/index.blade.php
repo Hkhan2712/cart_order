@@ -7,12 +7,10 @@
     <h1 class="mb-5 d-flex justify-content-center" style="font-size: 4rem;">All Categories</h1>
 
     {{-- Banner (check that the file exists in public/store/categories/categories-banner.jpg) --}}
-    <img 
-        src="{{ asset('store/categories/banner.jpg') }}" 
+    <img src="{{ asset('storage/categories/1.jpg') }}" 
         alt="Category Banner"
         class="mb-5 w-100 rounded-4"
-        style="height: 300px; object-fit: cover;"
-    >
+        style="object-fit: cover;">
 
     {{-- Show all categories --}}
     <div class="container">
