@@ -43,4 +43,8 @@ class ProductService extends Service implements ProductServiceInterface
         return $this->repo->getRelatedProducts($product);
     }
 
+    public function paginateByCategory($id, $limit)
+    {
+        return $this->repo->paginateByCategory($id, $limit);
+    }
 }

@@ -13,10 +13,7 @@
             <span class="text-muted">({{ $product->review_count }} reviews)</span>
         </div>
         <div class="mb-2">
-            <span class="h5 text-danger me-2">${{ number_format($product->price, 2) }}</span>
-            @if ($product->original_price > $product->price)
-                <del class="text-muted">${{ number_format($product->original_price, 2) }}</del>
-            @endif
+            <x-price :price="$product->price" :sale="$product->sale_price" />
         </div>
         <div class="d-flex align-items-center mb-3">
             <label for="quantity" class="me-2">Quantity:</label>

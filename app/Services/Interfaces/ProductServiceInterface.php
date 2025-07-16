@@ -11,4 +11,5 @@ interface ProductServiceInterface extends ServiceInterface
     public function getNewArrivals($limit = 10); 
     public function getBySlugWithDetailsAndReviews(string $slug);
     public function getRelatedProducts(Product $product);
+    public function paginateByCategory($id, $limit);
 }

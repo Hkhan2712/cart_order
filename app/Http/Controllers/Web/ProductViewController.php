@@ -18,7 +18,7 @@ class ProductViewController extends Controller {
             'products' => $this->productService->all()
         ]);
     }
-    public function show(string $slug)
+    public function show(string $slug): View
     {
         $product = $this->productService->getBySlugWithDetailsAndReviews($slug);
         $relatedProducts = $this->productService->getRelatedProducts($product);

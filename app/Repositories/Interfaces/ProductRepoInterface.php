@@ -11,4 +11,5 @@ interface ProductRepoInterface extends Repository {
     public function getFeaturedProducts($limit);
     public function findBySlugWithDetailsAndReviews(string $slug);
     public function getRelatedProducts(Product $product);
+    public function paginateByCategory($id, $limit);
 }

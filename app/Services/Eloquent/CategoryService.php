@@ -12,6 +12,6 @@ class CategoryService extends Service implements CategoryServiceInterface
     }
 
     public function findBySlug(string $slug): Category {
-        return $this->repo->model()->where('slug', $slug)->firstOrFail();
+        return $this->repo->findBySlug($slug);
     }
 }

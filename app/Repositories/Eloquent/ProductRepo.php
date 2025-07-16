@@ -72,4 +72,12 @@ class ProductRepo extends BaseRepo implements ProductRepoInterface
                     ->take(8)
                     ->get();
     }
+    
+    public function paginateByCategory($id, $limit)
+    {
+        return $this->model
+                    ->where('category_id', $id)
+                    ->orderBy('id')
+                    ->cursorPaginate($limit);
+    }
 }

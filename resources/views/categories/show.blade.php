@@ -4,10 +4,11 @@
 
 @section('content')
 <div class="py-5 mx-3">
-    <h1 class="mb-5 d-flex justify-content-center" style="font-size: 4rem;"></h1>
-    
+    <h1 class="mb-5 d-flex justify-content-center" style="font-size: 4rem;">{{$category->name}}</h1>
     <div class="row">
-        
+        <section class="col-12 col-md-9">
+            @include('products.partials.product-grid', ['products' => $products])
+        </section>
     </div>
 </div>
 

@@ -11,10 +11,4 @@
             </div>
         @endforeach
     </div>
-
-    {{-- Price Range (placeholder, can upgrade with JS later) --}}
-    <div class="mb-4">
-        <h3 class="h6 fw-medium mb-2">Price</h3>
-        <input type="range" min="0" max="1000000" step="10000" class="form-range">
-    </div>
 </div>

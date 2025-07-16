@@ -1,5 +1,5 @@
 <div class="mb-5">
-    <h2 class="h5 mb-3">About this item</h2>
+    <h2 class="h5 mb-3">Product Detail</h2>
     <ul>
         <li><strong>Brand:</strong> {{ $product->detail->brand }}</li>
         <li><strong>Expiry:</strong> {{ $product->detail->expiry }}</li>
