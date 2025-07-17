@@ -20,7 +20,7 @@ class Category extends Model
             ? asset($path)
             : asset('images/categories/default.jpg');
     }
-    // Category.php
+
     public function getBannerUrlAttribute()
     {
         $path = 'categories/banners/' . $this->banner;

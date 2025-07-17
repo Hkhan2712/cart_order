@@ -1,3 +1,8 @@
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/pages/product.css') }}">
+@endpush
+
 @extends('layouts.app')
 
 @section('title', $product->name)

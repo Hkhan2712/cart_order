@@ -30,12 +30,12 @@ class Product extends Model
 
         $image = $this->images->firstWhere('is_primary', 1);
 
-        $path = $image ? 'store/' . $image->image_path : 'store/products/default.png';
+        $path = $image ? 'storage/' . $image->image_path : 'storage/products/default.jpg';
         $fullPath = public_path($path);
 
         return file_exists($fullPath)
             ? asset($path)
-            : asset('store/products/default.jpg');
+            : asset('storage/products/default.jpg');
     }
 }
 

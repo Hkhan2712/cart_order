@@ -6,16 +6,7 @@
 </figure>
 <div class="d-flex flex-column text-center">
 <h3 class="fs-6 fw-normal">{{ $product->name }}</h3>
-<div>
-    <span class="rating">
-    @for ($i = 1; $i <= 5; $i++)
-        <svg width="18" height="18" class="text-warning">
-        <use xlink:href="#{{ $i <= round($product->rating) ? 'star-full' : 'star-half' }}"></use>
-        </svg>
-    @endfor
-    </span>
-    <span>({{ $product->review_count }})</span>
-</div>
+<x-star-rating :rating="$product->rating" :review-count="$product->review_count" />
 <div class="d-flex justify-content-center align-items-center gap-2">
     <x-price :price="$product->price" :sale="$product->sale_price" />
 </div>

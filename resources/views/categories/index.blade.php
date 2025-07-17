@@ -1,3 +1,7 @@
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/pages/categories.css') }}">
+@endpush
+
 @extends('layouts.app')
 
 @section('title', 'AquaTerra - All Category')
@@ -14,22 +18,21 @@
 
     {{-- Show all categories --}}
     <div class="container">
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+        <div class="row g-4">
             @foreach($categories as $category)
-                <div class="col text-center">
-                    <a href="{{ route('categories.show', $category->slug) }}" class="text-decoration-none text-dark">
-                        <img 
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                    <a href="{{ route('categories.show', $category->slug) }}" class="featured-categories-module__category-tile d-block text-center text-decoration-none text-dark">
+                        <img class="featured-categories-module__category-tile__image mb-2 rounded" 
                             src="{{ asset($category->thumbnail_url) }}" 
-                            alt="{{ $category->name }}" 
-                            class="rounded-circle mb-3" 
-                            style="width: 140px; height: 140px; object-fit: cover;"
-                        >
-                        <h5>{{ $category->name }}</h5>
+                            alt="{{ $category->name }}">
+                        <div class="featured-categories-module__category-tile__title">{{ $category->name }}</div>
                     </a>
                 </div>
             @endforeach
         </div>
     </div>
+
+
 </div>
 
 {{-- Store benefits section --}}

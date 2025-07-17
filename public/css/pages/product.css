@@ -1,0 +1,25 @@
+/* Hide number input arrows */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.pdp-value-props {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+}
+.product-detail-b .pdp-value-props .value {
+    text-align: center;
+}
+
+.is-size-6point5 {
+    font-size: 0.875rem;
+}

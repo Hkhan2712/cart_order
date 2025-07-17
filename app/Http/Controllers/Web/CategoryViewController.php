@@ -18,7 +18,7 @@ class CategoryViewController extends Controller {
 
     public function show(string $slug): View {
         $category = $this->categoryService->findBySlug($slug);
-        $products = $this->productService->paginateByCategory($category->id, 30);
+        $products = $this->productService->paginateByCategory($category->id, 10);
         return view('categories.show', compact('category', 'products'));
     }
 }
