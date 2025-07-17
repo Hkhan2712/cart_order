@@ -5,8 +5,17 @@
             <h3 class="display-4">{{ number_format($product->rating, 1) }}/5</h3>
             <div>
                 @for ($i = 1; $i <= 5; $i++)
-                    <svg width="20" height="20" class="text-warning">
-                        <use xlink:href="#{{ $i <= round($product->rating) ? 'star-full' : 'star-half' }}"></use>
+                    @php
+                        if ($product->rating >= $i) {
+                            $star = 'star-full';
+                        } elseif ($product->rating >= ($i - 0.5)) {
+                            $star = 'star-half';
+                        } else {
+                            $star = 'star-empty';
+                        }
+                    @endphp
+                    <svg width="20" height="20" class="text-warning me-1">
+                        <use xlink:href="#{{ $star }}"></use>
                     </svg>
                 @endfor
             </div>

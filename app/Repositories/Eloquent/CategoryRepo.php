@@ -13,4 +13,10 @@ class CategoryRepo extends BaseRepo implements CategoryRepoInterface
                 ->where('slug', $slug)
                 ->firstOrFail();
     }
+
+    public function findById($id) {
+        return $this->model
+                    ->where('id', $id)
+                    ->firstOrFail();
+    }
 }

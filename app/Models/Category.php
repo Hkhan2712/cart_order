@@ -14,11 +14,11 @@ class Category extends Model
 
     public function getThumbnailUrlAttribute(): string
     {
-        $path = 'images/categories/' . $this->thumbnail;
+        $path = 'storage/categories/' . $this->thumbnail;
 
         return (!empty($this->thumbnail) && File::exists(public_path($path)))
             ? asset($path)
-            : asset('images/categories/default.jpg');
+            : asset('storage/categories/default.jpg');
     }
 
     public function getBannerUrlAttribute()

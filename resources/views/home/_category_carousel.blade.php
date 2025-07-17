@@ -19,7 +19,7 @@
                 <div class="category-carousel swiper">
                     <div class="swiper-wrapper">
                         @foreach($categories as $category)
-                            <a href="" class="nav-link swiper-slide text-center">
+                            <a href="{{ route('categories.show', $category->slug) }}" class="nav-link swiper-slide text-center">
                                 <img src="{{ $category->thumbnail_url }}" class="rounded-circle" style="max-width: 160px; max-height: 160px" alt="{{ $category->name }}">
                                 <h4 class="fs-6 mt-3 fw-normal category-title">{{ $category->name }}</h4>
                             </a>
