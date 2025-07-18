@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="contact100-form-checkbox">
-                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
+                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
                         <label class="label-checkbox100" for="ckb1">
                             Remember me
                         </label>
@@ -52,6 +52,11 @@
                         <button class="login100-form-btn">
                             Login
                         </button>
+                    </div>
+                    <div class="container-login100-form-btn mt-3">
+                        <a href="{{ route('auth.google') }}" class="login100-form-btn" style="background-color: #db4a39;">
+                            <i class="fa fa-google m-r-5"></i> Login with Google
+                        </a>
                     </div>
 
                     <div class="text-center p-t-90">

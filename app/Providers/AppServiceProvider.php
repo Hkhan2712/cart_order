@@ -34,12 +34,14 @@ use App\Repositories\Interfaces\RoleRepoInterface;
 use App\Repositories\Interfaces\ShippingProviderRepoInterface;
 use App\Repositories\Interfaces\ShippingRepoInterface;
 use App\Repositories\Interfaces\UserRepoInterface;
+use App\Services\Eloquent\AuthService;
 use App\Services\Eloquent\CartService;
 use App\Services\Eloquent\CategoryService;
 use App\Services\Eloquent\HomeService;
 use App\Services\Eloquent\OrderService;
 use App\Services\Eloquent\ProductService;
 use App\Services\Eloquent\UserService;
+use App\Services\Interfaces\AuthServiceInterface;
 use App\Services\Interfaces\CartServiceInterface;
 use App\Services\Interfaces\CategoryServiceInterface;
 use App\Services\Interfaces\HomeServiceInterface;
@@ -81,6 +83,7 @@ class AppServiceProvider extends ServiceProvider
             OrderServiceInterface::class => OrderService::class,
             ProductServiceInterface::class => ProductService::class,
             UserServiceInterface::class => UserService::class,
+            AuthServiceInterface::class => AuthService::class,
         ];
 
         foreach ($bindings as $interface => $implementation) {

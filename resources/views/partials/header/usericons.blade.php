@@ -15,8 +15,8 @@
                 </form>
             </li>
         @else
-            <li><a href="{{ route('login.form') }}" class="btn btn-sm btn-outline-primary me-2">Login</a></li>
-            <li><a href="{{ route('register.form') }}" class="btn btn-sm btn-primary">Register</a></li>
+            <li><a href="{{ route('login.form') }}" class="btn btn-primary text-uppercase me-2">Login</a></li>
+            <li><a href="{{ route('register.form') }}" class="btn btn-dark text-uppercase">Register</a></li>
         @endauth
         <li>
             <a href="/wishlist" class="px-2">

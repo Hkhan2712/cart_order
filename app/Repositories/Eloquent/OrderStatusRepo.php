@@ -6,8 +6,5 @@ use App\Repositories\Interfaces\OrderStatusRepoInterface;
 
 class OrderStatusRepo extends BaseRepo implements OrderStatusRepoInterface
 {
-    public function __construct(OrderStatusLog $model)
-    {
-        parent::__construct($model);
-    }
+    protected function model(): string { return OrderStatusLog::class; }
 }

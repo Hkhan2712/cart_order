@@ -1,10 +1,16 @@
+@props([
+    'rating',
+    'reviewCount' => null,
+    'class' => '',
+])
+
 @php
     $fullStars = floor($rating);
     $halfStar = ($rating - $fullStars) >= 0.5 ? 1 : 0;
     $emptyStars = 5 - $fullStars - $halfStar;
 @endphp
 
-<div class="d-flex align-items-center">
+<div class="d-flex align-items-center {{ $class }}">
     @for ($i = 0; $i < $fullStars; $i++)
         <svg width="18" height="18" class="text-warning me-1">
             <use xlink:href="#star-full"></use>
