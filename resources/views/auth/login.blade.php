@@ -53,11 +53,13 @@
                             Login
                         </button>
                     </div>
-                    <div class="container-login100-form-btn mt-3">
-                        <a href="{{ route('auth.google') }}" class="login100-form-btn" style="background-color: #db4a39;">
-                            <i class="fa fa-google m-r-5"></i> Login with Google
+                    <div class="text-center mt-4">
+                        <p class="text-white mb-2">Or sign in using</p>
+                        <a href="{{ route('auth.google') }}" class="btn btn-light rounded-circle p-2">
+                            <img src="{{ asset('storage/icons/google-icon.svg') }}" alt="Google" style="width: 32px; height: 32px;">
                         </a>
                     </div>
+
 
                     <div class="text-center p-t-90">
                         <a class="txt1" href="">

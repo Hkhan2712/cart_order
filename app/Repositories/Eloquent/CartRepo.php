@@ -6,8 +6,5 @@ use App\Repositories\Interfaces\CartRepoInterface;
 
 class CartRepo extends BaseRepo implements CartRepoInterface
 {
-    public function __construct(Cart $model)
-    {  
-        parent::__construct($model);
-    }
+    protected function model(): string { return Cart::class; }
 }
