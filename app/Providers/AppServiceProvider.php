@@ -57,16 +57,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $bindings = [
-            // Repositories
+        $singletonBindings = [
             RoleRepoInterface::class            => RoleRepo::class,
             UserRepoInterface::class            => UserRepo::class,
             ShippingRepoInterface::class        => ShippingRepo::class,
             CategoryRepoInterface::class        => CategoryRepo::class,
             ProductRepoInterface::class         => ProductRepo::class,
             ProductImgRepoInterface::class      => ProductImgRepo::class,
-            CartRepoInterface::class            => CartRepo::class,
-            CartItemRepoInterface::class        => CartItemRepo::class,
             OrderRepoInterface::class           => OrderRepo::class,
             OrderItemRepoInterface::class       => OrderItemRepo::class,
             PaymentRepoInterface::class         => PaymentRepo::class,
@@ -76,8 +73,7 @@ class AppServiceProvider extends ServiceProvider
             OrderStatusRepoInterface::class     => OrderStatusRepo::class,
             ShippingProviderRepoInterface::class=> ShippingProviderRepo::class,
 
-            // Services
-            CartServiceInterface::class => CartService::class,
+            // Services stateless
             CategoryServiceInterface::class => CategoryService::class,
             HomeServiceInterface::class => HomeService::class,
             OrderServiceInterface::class => OrderService::class,
@@ -86,9 +82,21 @@ class AppServiceProvider extends ServiceProvider
             AuthServiceInterface::class => AuthService::class,
         ];
 
-        foreach ($bindings as $interface => $implementation) {
+        $bindBindings = [
+            CartRepoInterface::class => CartRepo::class,
+            CartItemRepoInterface::class => CartItemRepo::class,
+            CartServiceInterface::class => CartService::class,
+        ];
+
+
+        foreach ($singletonBindings as $interface => $implementation) {
             $this->app->singleton($interface, $implementation);
         }
+
+        foreach ($bindBindings as $interface => $implementation) {
+            $this->app->bind($interface, $implementation);
+        }
+
     }
 
 

@@ -1,4 +1,4 @@
-<div class="product-item swiper-slide">
+<div class="product-item swiper-slide" data-product-id="{{ $product->id }}">
     <figure>
         <a href="/products/{{ $product->slug}}" title="{{ $product->name }}">
             <img src="{{ $product->image_path }}" alt="{{ $product->slug }}" class="tab-image">
@@ -21,7 +21,7 @@
                     </a>
                 </div>
                 <div class="col-2">
-                    <a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6">
+                    <a href="#" class="btn btn-outline-dark btn-cart rounded-1 p-2 fs-6">
                         <svg width="18" height="18"><use xlink:href="#heart"></use></svg>
                     </a>
                 </div>

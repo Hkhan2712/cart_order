@@ -8,16 +8,16 @@
         <div class="mb-2">
             <x-price :price="$product->price" :sale="$product->sale_price" />
         </div>
-        <div class="mb-4" style="max-width: 200px;">
+        <div class="mb-4" style="max-width: 9.375rem;">
             <label for="quantity" class="form-label fw-semibold mb-2">Quantity</label>
             <div class="input-group">
-                <button class="btn btn-outline-success" style="border-color:#b5e7b1" type="button" onclick="document.getElementById('quantity').stepDown()">
+                <button class="btn btn-primary" style="border-color:#b5e7b1" type="button" onclick="document.getElementById('quantity').stepDown()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
                     </svg>
                 </button>
-                <input type="number" id="quantity" class="form-control text-center" value="1" min="1">
-                <button class="btn btn-outline-success" style="border-color:#b5e7b1" type="button" onclick="document.getElementById('quantity').stepUp()">
+                <input type="number" id="quantity" class="form-control text-center" value="1" min="1" style="border: 1px solid #6BB252;">
+                <button class="btn btn-primary" style="border-color:#b5e7b1" type="button" onclick="document.getElementById('quantity').stepUp()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                     </svg>
@@ -66,4 +66,5 @@
             <span class="text-muted">Return Policy:</span> 7-day refund or exchange
         </p>
     </div>
+    <hr>
 </div>
