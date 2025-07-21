@@ -2,9 +2,9 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Repositories\Interfaces\CartRepoInterface;
 use App\Models\Product;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -30,7 +30,7 @@ class CartRepo extends BaseRepo implements CartRepoInterface
 
     public function getCart(): Cart
     {
-        return $this->findOrCreateCart()->load('items.product');
+        return $this->findOrCreateCart()->load('items.product.images', 'items.product.category');
     }
 
     public function addProduct(int $productId, int $quantity): void
@@ -59,5 +59,18 @@ class CartRepo extends BaseRepo implements CartRepoInterface
     public function clear(): void
     {
         $this->findOrCreateCart()->items()->delete();
+    }
+
+    public function getOrCreateCartByUserId(int $userId): Cart
+    {
+        return Cart::firstOrCreate(['user_id' => $userId]);
+    }
+
+    public function updateOrCreateCartItem(int $cartId, int $productId, int $quantity): CartItem
+    {
+        return CartItem::updateOrCreate(
+            ['cart_id' => $cartId, 'product_id' => $productId],
+            ['quantity' => $quantity]
+        );
     }
 }

@@ -2,12 +2,12 @@
     <ul class="d-flex list-unstyled align-items-center mb-0">
         @auth
             <li>
-                <a href="/account">
+                <a href="/account" class="px-2">
                     <svg width="24" height="24"><use xlink:href="#user"></use></svg>
                 </a>
             </li>
             <li>
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}" class="px-2">
                     @csrf
                     <button type="submit" class="btn p-0 border-0 bg-transparent">
                         <svg width="24" height="24"><use xlink:href="#logout"></use></svg>

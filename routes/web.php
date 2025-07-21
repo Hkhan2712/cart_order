@@ -37,6 +37,7 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('/add', [CartController::class, 'add'])->name('add');
     Route::post('/remove', [CartController::class, 'remove'])->name('remove');
     Route::get('/mini', [CartController::class, 'miniCart'])->name('mini');
+    Route::post('/update', [CartController::class, 'update'])->name('update');
 });
 
 // Checkout 

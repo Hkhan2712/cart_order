@@ -6,4 +6,6 @@ interface CartServiceInterface extends ServiceInterface {
     public function addToCart(int $productId, int $quantity);
     public function removeFromCart(int $productId);
     public function clearCart();
+    public function updateQuantity(int $productId, int $quantity);
+    public function calculateVAT($cart, $rate = 0.1);
 }

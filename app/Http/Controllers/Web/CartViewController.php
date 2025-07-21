@@ -9,7 +9,9 @@ class CartViewController extends Controller {
 
     public function index()
     {
-        $cart = $this->cartService->getCart();
-        return view('cart.index', compact('cart'));
+       $cart = $this->cartService->getCart();
+        $total = $this->cartService->calculateVAT($cart);
+
+        return view('cart.index', compact('cart', 'total'));
     }
 }
