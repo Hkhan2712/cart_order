@@ -9,7 +9,7 @@
 @endpush
 
 @section('content')
-<div class="container p-5">
+<div class="container py-5">
     <div class="row">
         {{-- LEFT: Billing, Shipping, Payment --}}
         <div class="col-xl-8">
