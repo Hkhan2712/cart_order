@@ -53,12 +53,29 @@ class CartService extends Service
     {
         $this->cartRepo->clearItems($this->context->resolve());
     }
-
+    
     public function updateQuantity(int $productId, int $quantity)
     {
         $cart = $this->context->resolve();
-        $this->cartRepo->addOrUpdateItem($cart, Product::find($productId), $quantity);
-        return $this->getCart();
+        $product = Product::findOrFail($productId);
+
+        $this->cartRepo->addOrUpdateItem($cart, $product, $quantity);
+
+        $cartData = $this->getCart();
+        $vatData = $this->calculateVAT($cartData);
+
+        $item = $cartData->items->firstWhere('product_id', $productId);
+
+        return [
+            'item' => [
+                'quantity' => $item['quantity'],
+                'total' => $item['subtotal'],
+            ],
+            'subtotal' => $cartData->total,
+            'vat' => $vatData['vat'],
+            'total_with_vat' => $vatData['totalWithVAT'],
+            'items_count' => $cartData->items_count,
+        ];
     }
 
     public function calculateVAT($cart, $rate = 0.1)

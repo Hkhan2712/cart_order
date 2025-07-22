@@ -39,7 +39,7 @@ class CartRepo extends BaseRepo {
 
         if ($item) {
             $item->update([
-                'quantity' => $item->quantity + $quantity,
+                'quantity' => $quantity,
                 'price' => $price,
             ]);
         } else {
