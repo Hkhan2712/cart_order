@@ -1,11 +1,10 @@
 <?php 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories;
 
 use App\Models\Product;
-use App\Repositories\Interfaces\ProductRepoInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class ProductRepo extends BaseRepo implements ProductRepoInterface 
+class ProductRepo extends BaseRepo
 {
     protected function model(): string { return Product::class; }
      

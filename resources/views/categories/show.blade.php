@@ -3,7 +3,7 @@
 @section('title', 'AquaTerra - ' . $category->name)
 
 @section('content')
-<div class="py-5 mx-3">
+<div class="p-5 mx-3">
     <h1 class="mb-5 d-flex justify-content-center" style="font-size: 4rem;">{{$category->name}}</h1>
    @if ($category->banner_url)
     <img src="{{ $category->banner_url }}" 

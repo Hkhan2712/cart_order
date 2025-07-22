@@ -1,13 +1,13 @@
 <?php
-namespace App\Services\Eloquent;
+namespace App\Services;
 
-use App\Repositories\Interfaces\Repository;
+use App\Repositories\BaseRepo;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class Service implements \App\Services\Interfaces\ServiceInterface
+abstract class Service
 {
-    public function __construct(protected Repository $repo) {}
+    public function __construct(protected BaseRepo $repo) {}
 
     public function all(): Collection
     {

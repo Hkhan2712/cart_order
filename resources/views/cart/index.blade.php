@@ -9,21 +9,21 @@
       <div class="col-md-8">
         <div class="card mb-4">
           <div class="card-header py-3">
-            <h5 class="mb-0">Cart - {{ $cart->items_count}} items</h5>
+            <h5 class="mb-0">Cart - {{ count($cart->items)}} items</h5>
           </div>
           <div class="card-body">
             @foreach ($cart->items as $item)
                 <div class="row mb-4">
                     <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                         <div class="bg-image hover-overlay hover-zoom ripple rounded">
-                            <img src="{{ asset($item['product']->image_path) }}" class="w-100" alt="{{ $item['product']->name }}">
+                            <img src="{{ asset($item['image']) }}" class="w-100" alt="{{ $item['name'] }}">
                         </div>
                     </div>
 
                 <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-					<a href="/products/{{$item['product']->slug}}" class="text-decoration-none"><strong>{{ $item['product']->name }}</strong></a>
-					<p>Category: {{ $item['product']->category->name ?? '-' }}</p>
-					<button class="btn btn-primary btn-sm me-1 mb-2 remove-item" data-id="{{ $item['product']->id }}">
+					<a href="/products/{{$item['slug']}}" class="text-decoration-none"><strong>{{ $item['name'] }}</strong></a>
+					<p>Category: {{ $item['category']['name'] ?? '-' }}</p>
+					<button class="btn btn-primary btn-sm me-1 mb-2 remove-item" data-id="{{ $item['product_id'] }}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
 							<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
 						</svg>
@@ -36,8 +36,8 @@
                 </div>
 
                 @php
-                    $originalPrice = $item['product']->price;
-                    $salePrice = $item['product']->sale_price;
+                    $originalPrice = $item['price'];
+                    $salePrice = $item['sale_price'];
                     $unitPrice = $salePrice ?? $originalPrice;
                     $subtotal = $unitPrice * $item['quantity'];
                 @endphp
@@ -62,15 +62,15 @@
                     </p>
 
                     <div class="d-flex mb-2">
-                    <button class="btn btn-primary px-3 me-2 update-quantity" data-id="{{ $item['product']->id }}" data-type="decrease">
+                    <button class="btn btn-primary px-3 me-2 update-quantity" data-id="{{ $item['product_id']}}" data-type="decrease">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
                         </svg>
                     </button>
 
-                    <input min="1" name="quantity" value="{{ $item['quantity'] }}" type="number" class="form-control text-center quantity-input" data-id="{{ $item['product']->id }}"/>
+                    <input min="1" name="quantity" value="{{ $item['quantity'] }}" type="number" class="form-control text-center quantity-input" data-id="{{ $item['product_id']}}"/>
 
-                    <button class="btn btn-primary px-3 ms-2 update-quantity" data-id="{{ $item['product']->id }}" data-type="increase">
+                    <button class="btn btn-primary px-3 ms-2 update-quantity" data-id="{{ $item['product_id'] }}" data-type="increase">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                         </svg>

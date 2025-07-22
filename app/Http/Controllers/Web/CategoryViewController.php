@@ -2,14 +2,14 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Services\Interfaces\CategoryServiceInterface;
-use App\Services\Interfaces\ProductServiceInterface;
+use App\Services\CategoryService;
+use App\Services\ProductService;
 use Illuminate\View\View;
 
 class CategoryViewController extends Controller {
     public function __construct(
-        protected ProductServiceInterface $productService,
-        protected CategoryServiceInterface $categoryService) {}
+        protected ProductService $productService,
+        protected CategoryService $categoryService) {}
     public function index(): View {
         return view('categories.index', [
             'categories' => $this->categoryService->all()

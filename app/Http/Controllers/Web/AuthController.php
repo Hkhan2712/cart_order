@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
-use App\Services\Interfaces\AuthServiceInterface;
 
 class AuthController extends Controller
 {
     public function __construct(
-        protected AuthServiceInterface $authService
+        protected AuthService $authService
     )
     {}
     public function showRegisterForm() {

@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Services\Eloquent;
+namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Services\Interfaces\AuthServiceInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
-class AuthService implements AuthServiceInterface
+class AuthService 
 {
     public function register(Request $request) {
         $request->validate([

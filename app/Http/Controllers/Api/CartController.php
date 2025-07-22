@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\AddToCartRequest;
 use App\Http\Requests\RemoveFromCartRequest;
 use Illuminate\Http\Request;
-use App\Services\Interfaces\CartServiceInterface;
+use App\Services\CartService;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends ApiController {
     
-    public function __construct(protected CartServiceInterface $cartService) {}
+    public function __construct(protected CartService $cartService) {}
 
      public function add(AddToCartRequest $request)
     {
@@ -58,23 +59,7 @@ class CartController extends ApiController {
         }
     }
 
-
-    public function miniCart()
-    {
-        $cart = $this->cartService->getCart();
-
-        return response()->json([
-            'items' => $cart->items->map(function ($item) {
-                return [
-                    'product_id' => $item->product_id,
-                    'name' => $item->product->name,
-                    'price' => $item->price,
-                    'quantity' => $item->quantity,
-                    'subtotal' => $item->price * $item->quantity,
-                    'image' => $item->product->thumbnail_url,
-                ];
-            }),
-            'total' => $cart->items->sum(fn ($i) => $i->price * $i->quantity)
-        ]);
+    public function miniCart() {
+        return $this->cartService->getCart();
     }
 }

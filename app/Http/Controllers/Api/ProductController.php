@@ -1,13 +1,13 @@
 <?php 
 namespace App\Http\Controllers\Api;
 
-use App\Services\Interfaces\ProductServiceInterface;
+use App\Services\ProductService;
 
 class ProductController extends ApiController
 {
-    protected ProductServiceInterface $productService;
+    protected ProductService $productService;
 
-    public function __construct(ProductServiceInterface $productService)
+   public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
     }

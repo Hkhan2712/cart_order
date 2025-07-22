@@ -1,14 +1,14 @@
 <?php
-namespace App\Services\Eloquent;
+namespace App\Services;
 
 use App\Models\Product;
-use App\Repositories\Interfaces\ProductRepoInterface;
-use App\Services\Interfaces\ProductServiceInterface;
+use App\Repositories\ProductRepo;
+use App\Services\Service;
 use Illuminate\Database\Eloquent\Collection;
 
-class ProductService extends Service implements ProductServiceInterface
+class ProductService extends Service 
 {
-    public function __construct(ProductRepoInterface $repo)
+    public function __construct(ProductRepo $repo)
     {
         parent::__construct($repo);
     }

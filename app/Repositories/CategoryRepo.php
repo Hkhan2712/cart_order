@@ -1,10 +1,9 @@
 <?php 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories;
 
 use App\Models\Category;
-use App\Repositories\Interfaces\CategoryRepoInterface;
 
-class CategoryRepo extends BaseRepo implements CategoryRepoInterface 
+class CategoryRepo extends BaseRepo 
 {
     protected function model(): string { return Category::class; }
 

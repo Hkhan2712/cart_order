@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="container py-5">
-
+        {{-- show stock --}}
         @include('products.partials.product-main', ['product' => $product])
 
         @include('products.partials.product-detail', ['details' => $product->detail])

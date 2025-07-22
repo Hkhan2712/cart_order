@@ -49,13 +49,15 @@ const setupAddToCartButtons = () => {
                     alert(result.message || 'Failure add to cart!');
                 }
             } catch (err) {
-                console.error(err);
                 alert('Error connected with server.');
             }
         });
     });
 }
 
+// const setupRemoveToCartButton = () {
+//     document.querySelector('.remove-item')
+// }
 
 const setupMiniCartOnOffcanvasShow = () => {
     const offcanvas = document.getElementById('offcanvasCart');
@@ -153,7 +155,7 @@ async function loadMiniCart() {
     try {
         const res = await fetch('/cart/mini');
         const data = await res.json();
-
+        console.log(data);
         if (data.items.length > 0) {
             data.items.forEach(item => {
                 const li = document.createElement('li');

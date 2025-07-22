@@ -1,10 +1,9 @@
 <?php 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Repositories\Interfaces\Repository;
 
-abstract class BaseRepo implements Repository {
+abstract class BaseRepo {
     protected Model $model;
 
     public function __construct()

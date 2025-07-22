@@ -1,18 +1,14 @@
 <?php 
-namespace App\Services\Eloquent;
+namespace App\Services;
 
-use App\Services\Interfaces\CategoryServiceInterface;
-use App\Services\Interfaces\HomeServiceInterface;
-use App\Services\Interfaces\ProductServiceInterface;
-
-class HomeService implements HomeServiceInterface
+class HomeService 
 {
     protected $productService;
     protected $categoryService;
     
     public function __construct(
-        ProductServiceInterface $productService,
-        CategoryServiceInterface $categoryService
+        ProductService $productService,
+        CategoryService $categoryService
     ) 
     {
         $this->productService = $productService;
