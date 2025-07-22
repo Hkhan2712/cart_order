@@ -74,7 +74,13 @@ const removeCartItem = async (productId) => {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            document.querySelector(`.remove-item[data-id="${productId}"]`)?.closest('.row.mb-4')?.remove();
+            const removeBtn = document.querySelector(`.remove-item[data-id="${productId}"]`);
+            const productRow = removeBtn?.closest('.row.mb-4');
+            const hrElement = productRow?.nextElementSibling;
+            
+            if (productRow) productRow.remove();
+
+            if (hrElement?.tagName === 'HR') hrElement.remove();
 
             document.querySelector('.summary-subtotal').textContent = result.data.subtotal_formatted;
             document.querySelector('.cart-vat').textContent = result.data.vat_formatted;
@@ -135,7 +141,6 @@ const setupQuantityButtons = () => {
                 quantity++;
             } else if (type === 'decrease') {
                 if (quantity <= 1) {
-                    // Nếu giảm dưới 1 thì hỏi xoá
                     removeCartItem(productId);
                     return;
                 }

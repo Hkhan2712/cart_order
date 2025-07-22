@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('auth-assets/css/main.css') }}">
 </head>
 <body>
-
     <div class="limiter">
         <div class="container-login100" style="background-image: url('{{ asset('auth-assets/images/bg-02.jpg') }}');">
             <div class="wrap-login100">
@@ -66,7 +65,7 @@
     </div>
 
     <div id="dropDownSelect1"></div>
-    
+
     <script src="{{ asset('auth-assets/js/main.js') }}"></script>
 
 </body>

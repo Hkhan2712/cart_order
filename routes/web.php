@@ -7,7 +7,7 @@ use App\Http\Controllers\Web\ProductViewController;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\CartViewController;
 use App\Http\Controllers\Api\CartController;
-use App\Http\Controllers\Web\CheckoutViewController;
+use App\Http\Controllers\Web\OrderViewController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('products')->name('products.')->group(function () {
@@ -41,5 +41,9 @@ Route::prefix('cart')->name('cart.')->group(function () {
 });
 
 // Checkout 
-Route::get('/checkout', [CheckoutViewController::class, 'index'])->name('checkout.index');
+// Route::get('/checkout', [OrderViewController::class, 'index'])->name('checkout.index');
+Route::prefix('checkout')->name('checkout.')->group(function () {
+    Route::get('/', [OrderViewController::class, 'index'])->name('index');
+    Route::post('/process', [OrderViewController::class, 'process'])->name('process');
+});
 
