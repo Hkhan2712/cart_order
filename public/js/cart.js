@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setupAddToCartButtons();
     setupMiniCartOnOffcanvasShow();
     setupQuantityButtons();
+    setupRemoveButtons();
 });
 
 const setupAddToCartButtons = () => {
@@ -55,9 +56,57 @@ const setupAddToCartButtons = () => {
     });
 }
 
-// const setupRemoveToCartButton = () {
-//     document.querySelector('.remove-item')
-// }
+const removeCartItem = async (productId) => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    if (!confirm('Are you sure you want to remove this item?')) return;
+
+    try {
+        const response = await fetch('/cart/remove', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify({ product_id: productId })
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+            document.querySelector(`.remove-item[data-id="${productId}"]`)?.closest('.row.mb-4')?.remove();
+
+            document.querySelector('.summary-subtotal').textContent = result.data.subtotal_formatted;
+            document.querySelector('.cart-vat').textContent = result.data.vat_formatted;
+            document.querySelector('.cart-total-vat').textContent = result.data.total_with_vat_formatted;
+
+            const cartTitle = document.querySelector('.cart-header-title');
+            if (cartTitle) {
+                cartTitle.textContent = `Cart - ${result.data.total_items} items`;
+            }
+
+            if (typeof loadMiniCart === 'function') {
+                loadMiniCart();
+            }
+        } else {
+            alert(result.message || 'Remove failed!');
+        }
+    } catch (error) {
+        alert('Error connecting to server.');
+    }
+};
+
+const setupRemoveButtons = () => {
+    const removeButtons = document.querySelectorAll('.remove-item');
+
+    removeButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const productId = button.dataset.id;
+            removeCartItem(productId);
+        });
+    });
+};
 
 const setupMiniCartOnOffcanvasShow = () => {
     const offcanvas = document.getElementById('offcanvasCart');
@@ -84,7 +133,12 @@ const setupQuantityButtons = () => {
 
             if (type === 'increase') {
                 quantity++;
-            } else if (type === 'decrease' && quantity > 1) {
+            } else if (type === 'decrease') {
+                if (quantity <= 1) {
+                    // Nếu giảm dưới 1 thì hỏi xoá
+                    removeCartItem(productId);
+                    return;
+                }
                 quantity--;
             }
 
@@ -111,19 +165,9 @@ const setupQuantityButtons = () => {
                         lineTotalElem.textContent = result.data.line_total_formatted;
                     }
 
-                    const subtotalElem = document.querySelector('.summary-subtotal');
-                    const vatElem = document.querySelector('.cart-vat');
-                    const totalElem = document.querySelector('.cart-total-vat');
-
-                    if (subtotalElem) {
-                        subtotalElem.textContent = result.data.subtotal_formatted;
-                    }
-                    if (vatElem) {
-                        vatElem.textContent = result.data.vat_formatted;
-                    }
-                    if (totalElem) {
-                        totalElem.textContent = result.data.total_with_vat_formatted;
-                    }
+                    document.querySelector('.summary-subtotal').textContent = result.data.subtotal_formatted;
+                    document.querySelector('.cart-vat').textContent = result.data.vat_formatted;
+                    document.querySelector('.cart-total-vat').textContent = result.data.total_with_vat_formatted;
 
                     const cartTitle = document.querySelector('.cart-header-title');
                     if (cartTitle) {

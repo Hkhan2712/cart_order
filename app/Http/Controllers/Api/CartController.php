@@ -24,8 +24,12 @@ class CartController extends ApiController {
 
     public function remove(RemoveFromCartRequest $request)
     {
-        $this->cartService->removeFromCart($request->product_id);
-        return response()->json(['message' => 'Removed product from cart']);
+        $data = $this->cartService->removeFromCart($request->product_id);
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+        ]);
     }
     
     public function update(Request $request)
@@ -53,7 +57,7 @@ class CartController extends ApiController {
             ]);
         } catch (\Throwable $e) {
             return response()->json([
-                'success' => false,
+                'success' => false, 
                 'message' => 'Update failed: ' . $e->getMessage(),
             ], 422);
         }

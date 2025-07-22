@@ -42,18 +42,30 @@ class CartService extends Service
         $this->cartRepo->addOrUpdateItem($cart, $product, $quantity);
     }
 
-    public function removeFromCart(int $productId)
+    public function removeFromCart(int $productId): array
     {
         $cart = $this->context->resolve();
         $this->cartRepo->removeItem($cart, $productId);
-        return $this->getCart();
+
+        $cartData = $this->getCart();
+        $vatData = $this->calculateVAT($cartData);
+
+        return [
+            'subtotal' => $cartData->total,
+            'subtotal_formatted' => number_format($cartData->total, 0, ',', '.') . '₫',
+            'vat' => $vatData['vat'],
+            'vat_formatted' => number_format($vatData['vat'], 0, ',', '.') . '₫',
+            'total_with_vat' => $vatData['totalWithVAT'],
+            'total_with_vat_formatted' => number_format($vatData['totalWithVAT'], 0, ',', '.') . '₫',
+            'total_items' => $cartData->items_count,
+        ];
     }
 
     public function clearCart()
     {
         $this->cartRepo->clearItems($this->context->resolve());
     }
-    
+
     public function updateQuantity(int $productId, int $quantity)
     {
         $cart = $this->context->resolve();
