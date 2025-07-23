@@ -4,35 +4,37 @@
             <h5 class="font-size-16 mb-0">Order Summary</h5>
         </div>
         <div class="table-responsive">
-            <table class="table table-centered table-nowrap mb-0">
+            <table class="table table-centered table-nowrap mb-0" style="table-layout: fixed;">
                 <thead>
                     <tr>
-                        <th>Product</th>
+                        <th style="width: 80px;">Product</th>
                         <th>Details</th>
-                        <th class="text-end">Price</th>
+                        <th class="text-end" style="width: 100px;">Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $subtotal = 0;
-                    @endphp
+                    @php $subtotal = 0; @endphp
                     @foreach ($cartItems->items as $item)
                         @php $subtotal += $item['sale_price'] * $item['quantity']; @endphp
                         <tr>
-                            <td><img src="{{ $item['image'] }}" alt="" class="avatar-lg rounded"></td>
                             <td>
-                                <h6 class="text-truncate">{{ $item['name'] }}</h6>
-                                <small class="text-muted">${{ number_format($item['sale_price'], 2) }} x {{ $item['quantity'] }}</small>
+                                <img src="{{ $item['image'] }}" alt="" class="img-fluid rounded" style="max-width: 60px;">
                             </td>
-                            <td class="text-end">${{ number_format($item['sale_price'] * $item['price'], 2) }}</td>
+                            <td>
+                                <h6 class="mb-1 text-truncate" style="max-width: 200px; font-size: 14px;">
+                                    {{ $item['name'] }}
+                                </h6>
+                                <small class="text-muted">{{ number_format($item['sale_price'], 0) }}₫ x {{ $item['quantity'] }}</small>
+                            </td>
+                            <td class="text-end">{{ number_format($item['sale_price'] * $item['quantity'], 0) }}₫</td>
                         </tr>
                     @endforeach
-                    <tr><td colspan="2">Sub Total</td><td class="text-end">${{ number_format($subtotal, 2) }}</td></tr>
-                    <tr><td colspan="2">Shipping</td><td class="text-end">$25.00</td></tr>
-                    <tr><td colspan="2">Tax</td><td class="text-end">$18.20</td></tr>
+                    <tr><td colspan="2">Sub Total</td><td class="text-end">{{ number_format($subtotal, 0) }}₫</td></tr>
+                    <tr><td colspan="2">Shipping</td><td class="text-end">12,000₫</td></tr>
+                    <tr><td colspan="2">VAT</td><td class="text-end">{{ number_format($subtotal * 0.1, 0) }}₫</td></tr>
                     <tr class="bg-light">
                         <td colspan="2"><strong>Total</strong></td>
-                        <td class="text-end"><strong>${{ number_format($subtotal + 25 + 18.2, 2) }}</strong></td>
+                        <td class="text-end"><strong>{{ number_format($subtotal + 12000 + ($subtotal * 0.1), 0) }}₫</strong></td>
                     </tr>
                 </tbody>
             </table>

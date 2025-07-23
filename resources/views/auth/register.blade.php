@@ -17,7 +17,6 @@
         <div class="container-login100" style="background-image: url('{{ asset('auth-assets/images/bg-02.jpg') }}');">
             <div class="wrap-login100">
 
-                {{-- Form gửi OTP bằng số điện thoại --}}
                 <form class="login100-form validate-form" method="POST" action="">
                     @csrf
 
@@ -41,7 +40,6 @@
                         </div>
                     @endif
 
-                    {{-- Số điện thoại --}}
                     <div class="wrap-input100 validate-input" data-validate="Enter your phone number">
                         <input class="input100" type="text" name="phone" placeholder="Phone number" value="{{ old('phone') }}" required>
                         <span class="focus-input100" data-placeholder="&#xf2be;"></span>

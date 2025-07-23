@@ -1,4 +1,4 @@
-body{margin-top:20px;
+body{
 background-color: #f1f3f7;
 }
 
@@ -41,11 +41,11 @@ background-color: #f1f3f7;
 }
 
 .activity-checkout .checkout-item:first-child {
-    border-color: #3b76e1
+    border-color: rgba(107, 178, 82, 1);
 }
 
 .activity-checkout .checkout-item:first-child:after {
-    background-color: #3b76e1
+    background-color: rgba(107, 178, 82, 1);
 }
 
 .activity-checkout .checkout-item:last-child {
@@ -98,7 +98,7 @@ background-color: #f1f3f7;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background-color: #3b76e1;
+    background-color: rgba(107, 178, 82, 1);
     color: #fff;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -168,7 +168,7 @@ background-color: #f1f3f7;
 }
 
 .card-radio-input:checked+.card-radio {
-    border-color: #3b76e1!important
+    border-color: rgba(107, 178, 82, 1);
 }
 
 

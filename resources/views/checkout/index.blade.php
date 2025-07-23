@@ -13,28 +13,8 @@
     <div class="row">
         {{-- LEFT: Billing, Shipping, Payment --}}
         <div class="col-xl-8">
-            @include('checkout.partials.billing-info')
-            @include('checkout.partials.shipping-info')
-            @include('checkout.partials.payment-info')
-
-            {{-- Footer buttons --}}
-            <div class="row my-4">
-                <div class="col">
-                    <a href="{{ route('products.index') }}" class="btn btn-link text-muted">
-                        <i class="mdi mdi-arrow-left me-1"></i> Continue Shopping
-                    </a>
-                </div>
-                <div class="col text-end">
-                    <form action="{{ route('checkout.process') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-success">
-                            <i class="mdi mdi-cart-outline me-1"></i> Proceed
-                        </button>
-                    </form>
-                </div>
-            </div>
+            @include('checkout.partials.checkout-info');
         </div>
-
         {{-- RIGHT: Order Summary --}}
         <div class="col-xl-4">
             @include('checkout.partials.order-summary', ['cartItems' => $cartItems])
