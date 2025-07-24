@@ -6,6 +6,7 @@ use App\Services\CategoryService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\Product;
 
 class ProductViewController extends Controller {
     public function __construct(
@@ -32,5 +33,17 @@ class ProductViewController extends Controller {
         $products = $this->productService->search($query, 30);
 
         return view('products.search', compact('products', 'query'));
+    }
+
+    public function ajaxFilter(Request $request) {
+        $query = Product::query();
+
+        if ($request->has('categories')) {
+            $query->whereIn('category_id', $request->input('categories', []));
+        }
+
+        $products = $query->paginate(30);
+
+        return view('products.partials.product-grid', compact('products'))->render();   
     }
 }

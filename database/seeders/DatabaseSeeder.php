@@ -16,7 +16,10 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
         // $this->call(ProductSeeder::class);
         // $this->call(ProductImageSeeder::class);
-        $this->call(ProductDetailSeeder::class);
-
+        // $this->call(ProductDetailSeeder::class);
+        $this->call([
+            RoleSeeder::class,
+            PermissionSeeder::class,
+        ]);
     }
 }

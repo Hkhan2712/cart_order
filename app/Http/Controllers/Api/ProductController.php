@@ -11,10 +11,4 @@ class ProductController extends ApiController
     {
         $this->productService = $productService;
     }
-
-    public function show($id)
-    {
-        $product = $this->productService->find($id);
-        return view('products.show', compact('product'));
-    }
 }

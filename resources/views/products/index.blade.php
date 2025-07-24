@@ -26,3 +26,30 @@
     ['icon' => 'offers', 'title' => 'Daily offers', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipi elit.'],
 ]" />
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('filter-form');
+        const productList = document.getElementById('product-list');
+
+        form.querySelectorAll('input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', function () {
+                const formData = new FormData(form);
+
+                fetch("{{ route('products.filter') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(html => {
+                    productList.innerHTML = html;
+                });
+            });
+        });
+    });
+</script>
+@endpush
