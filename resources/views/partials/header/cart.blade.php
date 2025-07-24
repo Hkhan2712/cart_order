@@ -14,7 +14,7 @@
             </div>
 
             <!-- Cart Items -->
-            <ul class="list-group mb-3" id="mini-cart-items">
+            <ul class="list-group mb-3" id="mini-cart-items" style="max-height: 37.5rem; overflow-y: auto;">
                 
             </ul>
 
