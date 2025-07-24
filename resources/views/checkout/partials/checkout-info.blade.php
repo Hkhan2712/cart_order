@@ -10,7 +10,7 @@
                 </div>
                 <div class="feed-item-list">
                     <h5 class="font-size-16 mb-1">Billing Info</h5>
-                    <p class="text-muted text-truncate mb-4">Sed ut perspiciatis unde omnis iste</p>
+                    <p class="text-muted text-truncate mb-4">Recipient information</p>
                     <form>
                         <div class="row">
                             <div class="col-lg-4 mb-3">
@@ -62,9 +62,9 @@
                 </div>
                 <div class="feed-item-list">
                     <h5 class="font-size-16 mb-1">Shipping Info</h5>
-                    <p class="text-muted text-truncate mb-4">Neque porro quisquam est</p>
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-6">
+                    <p class="text-muted text-truncate mb-4">Another address</p>
+                    <div class="row" id="shipping-address-list">
+                        {{-- <div class="col-lg-4 col-sm-6">
                             <label class="card-radio-label mb-0">
                                 <input type="radio" name="address" class="card-radio-input" checked>
                                 <div class="card-radio text-truncate p-3">
@@ -85,7 +85,7 @@
                                     <span class="text-muted fw-normal d-block">Mo. 012-345-6789</span>
                                 </div>
                             </label>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </li>

@@ -37,7 +37,7 @@
                         @php
                             $originalPrice = $item['price'];
                             $salePrice = $item['sale_price'];
-                            $unitPrice = $salePrice ?? $originalPrice;
+                            $unitPrice = ($salePrice === 0 ) ? $originalPrice : $salePrice;
                             $subtotal = $unitPrice * $item['quantity'];
                         @endphp
 
@@ -127,4 +127,5 @@
         </div>
     </div>
 </section>
+@include('components.confirm-popup')
 @endsection

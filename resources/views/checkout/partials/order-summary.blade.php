@@ -15,7 +15,10 @@
                 <tbody>
                     @php $subtotal = 0; @endphp
                     @foreach ($cartItems->items as $item)
-                        @php $subtotal += $item['sale_price'] * $item['quantity']; @endphp
+                        @php 
+                            $price = ($item['sale_price'] === 0) ? $item['price'] : $item['sale_price'];
+                            $subtotal += $price * $item['quantity']; 
+                        @endphp
                         <tr>
                             <td>
                                 <img src="{{ $item['image'] }}" alt="" class="img-fluid rounded" style="max-width: 60px;">
@@ -24,9 +27,9 @@
                                 <h6 class="mb-1 text-truncate" style="max-width: 200px; font-size: 14px;">
                                     {{ $item['name'] }}
                                 </h6>
-                                <small class="text-muted">{{ number_format($item['sale_price'], 0) }}₫ x {{ $item['quantity'] }}</small>
+                                <small class="text-muted">{{ number_format($price, 0) }}₫ x {{ $item['quantity'] }}</small>
                             </td>
-                            <td class="text-end">{{ number_format($item['sale_price'] * $item['quantity'], 0) }}₫</td>
+                            <td class="text-end">{{ number_format($price * $item['quantity'], 0) }}₫</td>
                         </tr>
                     @endforeach
                     <tr><td colspan="2">Sub Total</td><td class="text-end">{{ number_format($subtotal, 0) }}₫</td></tr>

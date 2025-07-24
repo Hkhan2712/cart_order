@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\ProductViewController;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\CartViewController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\UserAddressController;
 use App\Http\Controllers\Web\OrderViewController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -46,4 +47,7 @@ Route::prefix('checkout')->name('checkout.')->group(function () {
     Route::get('/', [OrderViewController::class, 'index'])->name('index');
     Route::post('/process', [OrderViewController::class, 'process'])->name('process');
 });
+
+// Addresses
+Route::middleware('auth')->get('/user-address', [UserAddressController::class, 'index']);
 
