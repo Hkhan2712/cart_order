@@ -5,6 +5,22 @@ document.addEventListener('DOMContentLoaded', function () {
     setupRemoveButtons();
 });
 
+const showToast = (message, type = 'primary') => {
+    const toastEl = document.getElementById('liveToast');
+    const toastBody = document.getElementById('toast-message');
+
+    toastBody.textContent = message;
+
+    // Set background color class
+    toastEl.className = `toast align-items-center text-bg-${type} border-0 slide-toast`;
+
+    const toastBootstrap = new bootstrap.Toast(toastEl, {
+        delay: 3000, // auto close after 3s
+    });
+
+    toastBootstrap.show();
+}
+
 const setupAddToCartButtons = () => {
     document.querySelectorAll('.btn-cart').forEach(button => {
         button.addEventListener('click', async function (e) {
@@ -44,7 +60,7 @@ const setupAddToCartButtons = () => {
 
                 const result = await response.json();
                 if (response.ok) {
-                    alert('Added to cart!');
+                    showToast('Added item to the cart!', 'success');
                     loadMiniCart();
                 } else {
                     alert(result.message || 'Failure add to cart!');
@@ -57,50 +73,53 @@ const setupAddToCartButtons = () => {
 }
 
 const removeCartItem = async (productId) => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    showConfirm('Bạn có chắc chắn muốn xóa sản phẩm này không?', async (confirmed) => {
+        if (!confirmed) return;
 
-    if (!confirm('Are you sure you want to remove this item?')) return;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    try {
-        const response = await fetch('/cart/remove', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            },
-            body: JSON.stringify({ product_id: productId })
-        });
+        try {
+            const response = await fetch('/cart/remove', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({ product_id: productId })
+            });
 
-        const result = await response.json();
+            const result = await response.json();
 
-        if (response.ok && result.success) {
-            const removeBtn = document.querySelector(`.remove-item[data-id="${productId}"]`);
-            const productRow = removeBtn?.closest('.row.mb-4');
-            const hrElement = productRow?.nextElementSibling;
-            
-            if (productRow) productRow.remove();
+            if (response.ok && result.success) {
+                const removeBtn = document.querySelector(`.remove-item[data-id="${productId}"]`);
+                const productRow = removeBtn?.closest('.row.mb-4');
+                const hrElement = productRow?.nextElementSibling;
+                
+                if (productRow) productRow.remove();
+                if (hrElement?.tagName === 'HR') hrElement.remove();
 
-            if (hrElement?.tagName === 'HR') hrElement.remove();
+                document.querySelector('.summary-subtotal').textContent = result.data.subtotal_formatted;
+                document.querySelector('.cart-vat').textContent = result.data.vat_formatted;
+                document.querySelector('.cart-total-vat').textContent = result.data.total_with_vat_formatted;
 
-            document.querySelector('.summary-subtotal').textContent = result.data.subtotal_formatted;
-            document.querySelector('.cart-vat').textContent = result.data.vat_formatted;
-            document.querySelector('.cart-total-vat').textContent = result.data.total_with_vat_formatted;
+                const cartTitle = document.querySelector('.cart-header-title');
+                if (cartTitle) {
+                    cartTitle.textContent = `Cart - ${result.data.total_items} items`;
+                }
 
-            const cartTitle = document.querySelector('.cart-header-title');
-            if (cartTitle) {
-                cartTitle.textContent = `Cart - ${result.data.total_items} items`;
+                if (typeof loadMiniCart === 'function') {
+                    loadMiniCart();
+                }
+
+                showToast('Removed item from the cart!');
+            } else {
+                showToast(result.message || 'Removed item failure', 'danger');
             }
-
-            if (typeof loadMiniCart === 'function') {
-                loadMiniCart();
-            }
-        } else {
-            alert(result.message || 'Remove failed!');
+        } catch (error) {
+            showToast('Can not connect to server', 'danger');
         }
-    } catch (error) {
-        alert('Error connecting to server.');
-    }
-};
+    });
+}
 
 const setupRemoveButtons = () => {
     const removeButtons = document.querySelectorAll('.remove-item');
@@ -238,4 +257,34 @@ async function loadMiniCart() {
     } finally {
         loading.classList.add('d-none');
     }
+};
+
+const showConfirm = (message, callback) => {
+    const modal = document.getElementById('custom-confirm');
+    const messageElem = document.getElementById('confirm-message');
+    const okButton = document.getElementById('confirm-ok-btn');
+
+    messageElem.textContent = message;
+
+    const newOkBtn = okButton.cloneNode(true);
+    okButton.parentNode.replaceChild(newOkBtn, okButton);
+
+    newOkBtn.addEventListener('click', () => {
+        hideConfirm();
+        callback(true);
+    });
+
+    modal.classList.add('show');
+    modal.style.display = 'block';
+    document.body.classList.add('modal-open');
+    document.body.insertAdjacentHTML('beforeend', '<div class="modal-backdrop fade show"></div>');
 }
+
+const hideConfirm = () => {
+    const modal = document.getElementById('custom-confirm');
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    const backdrop = document.querySelector('.modal-backdrop');
+    if (backdrop) backdrop.remove();
+};
