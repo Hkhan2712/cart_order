@@ -39,7 +39,7 @@ class CartService extends Service
     {
         $cart = $this->context->resolve();
         $product = Product::findOrFail($productId);
-        $this->cartRepo->addOrUpdateItem($cart, $product, $quantity);
+        $this->cartRepo->addItem($cart, $product, $quantity);
     }
 
     public function removeFromCart(int $productId): array
@@ -71,7 +71,7 @@ class CartService extends Service
         $cart = $this->context->resolve();
         $product = Product::findOrFail($productId);
 
-        $this->cartRepo->addOrUpdateItem($cart, $product, $quantity);
+        $this->cartRepo->updateItem($cart, $product, $quantity);
 
         $cartData = $this->getCart();
         $vatData = $this->calculateVAT($cartData);

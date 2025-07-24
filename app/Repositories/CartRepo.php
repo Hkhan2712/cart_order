@@ -32,8 +32,24 @@ class CartRepo extends BaseRepo {
         return $cart->load('items.product.images', 'items.product.category');
     }
 
-    public function addOrUpdateItem(Cart $cart, Product $product, int $quantity): void
-    {
+    public function addItem(Cart $cart, Product $product, int $quantity) {
+        $item = $cart->items()->where('product_id', $product->id)->first();
+        $price = $product->sale_price ?? $product->price;
+        
+        if ($item) {
+            $item->update([
+                'quantity' => $quantity + $item->quantity,
+                'price' => $price,
+            ]);
+        } else {
+            $cart->items()->create([
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+                'price' => $price,
+            ]);
+        }
+    }
+    public function updateItem(Cart $cart, Product $product, int $quantity  ) {
         $item = $cart->items()->where('product_id', $product->id)->first();
         $price = $product->sale_price ?? $product->price;
 
@@ -50,7 +66,6 @@ class CartRepo extends BaseRepo {
             ]);
         }
     }
-
     public function removeItem(Cart $cart, int $productId): void
     {
         $cart->items()->where('product_id', $productId)->delete();
