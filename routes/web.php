@@ -11,10 +11,15 @@ use App\Http\Controllers\Api\UserAddressController;
 use App\Http\Controllers\Web\OrderViewController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::prefix('products')->name('products.')->group(function () {
+    Route::get('/search', [ProductViewController::class, 'search'])->name('search');
     Route::get('/', [ProductViewController::class, 'index'])->name('index');
-    Route::get('/{slug}', [ProductViewController::class, 'show'])->name('show');
+    Route::get('/{slug}', [ProductViewController::class, 'show'])
+        ->where('slug', '^(?!search$).+')
+        ->name('show');
 });
+
 Route::prefix('categories')->name('categories.')->group(function () {
     Route::get('/', [CategoryViewController::class, 'index'])->name('index');
     Route::get('/{slug}', [CategoryViewController::class, 'show'])->name('show');

@@ -47,4 +47,8 @@ class ProductService extends Service
     {
         return $this->repo->paginateByCategory($id, $limit);
     }
+
+    public function search(string $query, int $perPage) {
+        return $this->repo->search($query, $perPage);
+    }
 }

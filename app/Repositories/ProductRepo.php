@@ -79,4 +79,8 @@ class ProductRepo extends BaseRepo
                     ->orderBy('id')
                     ->cursorPaginate($limit);
     }
-}
+
+    public function search(string $query, int $perPage = 30) {
+        return $this->model::search($query)->paginate($perPage);
+    }
+} 

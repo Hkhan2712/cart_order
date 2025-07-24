@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
+    use Searchable;
+    
     protected $fillable = ['name', 'slug', 'description', 'price', 'sale_price', 'weight', 'unit', 'stock_quantity', 'category_id', 'status', 'published_at'];
 
     public function category() { return $this->belongsTo(Category::class); }
@@ -36,6 +39,17 @@ class Product extends Model
         return file_exists($fullPath)
             ? asset($path)
             : asset('storage/products/default.jpg');
+    }
+
+    public function toSearchableArray() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'price' => $this->price,
+            'category_id' => $this->category_id,
+        ];
     }
 }
 
