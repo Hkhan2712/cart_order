@@ -565,6 +565,20 @@
             });
         });
     });
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     const buttons = document.querySelectorAll(SELECTOR_FULLSCREEN_TOGGLE);
+    //     buttons.forEach(btn => {
+    //         btn.addEventListener('click', event => {
+    //             event.preventDefault();
+    //             const target = event.target;
+    //             const button = target.closest(SELECTOR_FULLSCREEN_TOGGLE);
+    //             if (button) {
+    //                 const data = new FullScreen(button, undefined);
+    //                 data.toggleFullScreen();
+    //             }
+    //         });
+    //     });
+    // });
 
     /**
      * --------------------------------------------

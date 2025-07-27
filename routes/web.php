@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\LogController;
@@ -58,13 +59,13 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     Route::resource('/products', ProductController::class);
     Route::resource('/categories', CategoryController::class);
     Route::resource('/orders', OrderController::class);
-    Route::resource('/users', UserController::class);
+    Route::resource('/customers', CustomerController::class);
     Route::resource('/shippings', ShippingProviderController::class);
     Route::resource('/reviews', ReviewController::class);
     Route::resource('/inventory', InventoryController::class);
     Route::resource('/coupons', CouponController::class);
     Route::resource('/banners', BannerController::class);
-    Route::resource('/admins', AdminController::class);
+    Route::resource('/users', UserController::class);
     Route::resource('/notifications', NotificationController::class);
 
     Route::get('/settings/general', [SettingController::class, 'general'])->name('settings.general');

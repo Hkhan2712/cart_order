@@ -20,11 +20,12 @@
 
             <div class="content-wrapper">
                 @yield('content')
+
+                <div class="d-flex justify-content-center">
+                    @include('admin.partials.footer')
+                </div>
             </div>
-
-            @include('admin.partials.footer')
         </div>
-
     @include('admin.partials.scripts')
     </body>
 </html>
