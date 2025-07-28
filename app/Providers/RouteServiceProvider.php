@@ -21,10 +21,11 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::middleware('web')
-            ->group(base_path('routes/web.php'));
-
-        Route::middleware('web')
             ->domain('admin.localhost')
             ->group(base_path('routes/admin.php'));
+
+        Route::middleware('web')
+            ->group(base_path('routes/web.php'));
+
     }
 }

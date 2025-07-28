@@ -18,7 +18,7 @@ class CheckRole
     {
         $user = Auth::user();
 
-        if (!$user || !in_array($user->role, $roles)) {
+        if (!$user || !in_array($user->role->name, $roles)) {
             abort(403, 'You do not have access');
         }
 
