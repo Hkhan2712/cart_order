@@ -23,14 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            {{-- Đây là dữ liệu mẫu, bạn có thể truyền động sau --}}
-            <tr>
-                <td><a href="#" class="link-primary">OR9842</a></td>
-                <td>Call of Duty IV</td>
-                <td><span class="badge text-bg-success">Shipped</span></td>
-                <td><div id="table-sparkline-1"></div></td>
-            </tr>
-            <!-- Thêm các dòng khác nếu cần -->
+
             </tbody>
         </table>
         </div>

@@ -52,7 +52,7 @@
                     <span class="text-{{ $item['trend'] }}">
                         <i class="bi {{ $item['icon'] }}"></i> {{ $item['change'] }}
                     </span>
-                    <h5 class="fw-bold mb-0">{{ $item['value'] }}</h5>
+                    <h5 class="fw-bold mb-0">{{ $item['value'] }}&#8363;</h5>
                     <span class="text-uppercase">{{ $item['label'] }}</span>
                 </div>
             @endforeach
