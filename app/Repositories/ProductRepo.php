@@ -28,7 +28,11 @@ class ProductRepo extends BaseRepo
             ->withAvg('reviews', 'rating');
     }
 
-  
+    public function getAllProductsActive() {
+        return $this->model
+                    ->where('status', 1)
+                    ->get();
+    }
     public function createProductWithDetails(array $data): Product
     {
         return DB::transaction(function () use ($data) {

@@ -12,7 +12,9 @@ class ProductService extends Service
     {
         parent::__construct($repo);
     }
-
+    public function getAllProductsActive() {
+        return $this->repo->getAllProductsActive();
+    }
     public function getBestSelling($limit = 10): Collection
     {
         return $this->repo->orderBySoldCountDesc($limit);

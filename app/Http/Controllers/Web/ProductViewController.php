@@ -17,7 +17,7 @@ class ProductViewController extends Controller {
     {
         return view('products.index', [
             'categories' => $this->categoryService->all(),
-            'products' => $this->productService->all()
+            'products' => $this->productService->getAllProductsActive(),
         ]);
     }
     
