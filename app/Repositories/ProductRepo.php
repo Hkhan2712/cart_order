@@ -3,10 +3,19 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use App\Services\ImageService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductRepo extends BaseRepo
 {
+    public function __construct(Product $product, protected ImageService $imageService)
+    {
+        $this->model = $product;
+    }
     protected function model(): string
     {
         return Product::class;
@@ -17,6 +26,91 @@ class ProductRepo extends BaseRepo
         return $this->model
             ->with('images')
             ->withAvg('reviews', 'rating');
+    }
+
+  
+    public function createProductWithDetails(array $data): Product
+    {
+        return DB::transaction(function () use ($data) {
+            $data['slug'] = $data['slug'] ?? Str::slug($data['name']);
+
+            $productData = Arr::only($data, [
+                'name', 'slug', 'description', 'price', 'sale_price',
+                'weight', 'unit', 'stock_quantity', 'category_id', 'status'
+            ]);
+
+            $product = Product::create($productData);
+
+            $product->detail()->create([
+                'brand' => $data['brand'] ?? null,
+                'expiry' => $data['expiry'] ?? null,
+                'weight_detail' => $data['weight_detail'] ?? null,
+                'packaging_type' => $data['packaging_type'] ?? null,
+                'manufacturer_name' => $data['manufacturer_name'] ?? null,
+                'shipped_from' => $data['shipped_from'] ?? null,
+            ]);
+
+            if (!empty($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
+                $paths = $this->imageService->uploadWithSizes($data['image'], 'products');
+
+                $product->images()->create([
+                    'image_path' => $paths['medium'],
+                    'original_path' => $paths['original'] ?? null,
+                    'thumbnail_path' => $paths['thumbnail'] ?? null,
+                    'is_primary' => true
+                ]);
+            }
+
+            return $product;
+        });
+    }
+
+    public function updateProductWithDetails(Product $product, array $data): bool
+    {
+        return DB::transaction(function () use ($product, $data) {
+            $data['slug'] = $data['slug'] ?? Str::slug($data['name']);
+
+            $productData = Arr::only($data, [
+                'name', 'slug', 'description', 'price', 'sale_price',
+                'weight', 'unit', 'stock_quantity', 'category_id', 'status'
+            ]);
+
+            $product->update($productData);
+
+            // Cập nhật thông tin chi tiết sản phẩm
+            $product->detail()->updateOrCreate(
+                ['product_id' => $product->id],
+                [
+                    'brand' => $data['brand'] ?? null,
+                    'expiry' => $data['expiry'] ?? null,
+                    'weight_detail' => $data['weight_detail'] ?? null,
+                    'packaging_type' => $data['packaging_type'] ?? null,
+                    'manufacturer_name' => $data['manufacturer_name'] ?? null,
+                    'shipped_from' => $data['shipped_from'] ?? null,
+                ]
+            );
+
+    
+            if (!empty($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
+                $product->images()->where('is_primary', true)->each(function ($image) {
+                    Storage::disk('public')->delete($image->image_path);
+                    if ($image->original_path) Storage::disk('public')->delete($image->original_path);
+                    if ($image->thumbnail_path) Storage::disk('public')->delete($image->thumbnail_path);
+                    $image->delete();
+                });
+
+                $paths = $this->imageService->uploadWithSizes($data['image'], 'products');
+
+                $product->images()->create([
+                    'image_path' => $paths['medium'],
+                    'original_path' => $paths['original'] ?? null,
+                    'thumbnail_path' => $paths['thumbnail'] ?? null,
+                    'is_primary' => true
+                ]);
+            }
+
+            return true;
+        });
     }
 
     public function orderBySoldCountDesc(int $limit = 10): Collection
@@ -93,5 +187,13 @@ class ProductRepo extends BaseRepo
     public function countLowInventoryProducts(int $threshold = 10): int
     {
         return Product::where('stock_quantity', '<', $threshold)->count();
+    }
+
+    public function getProductsWithPaginate($limit = 20)
+    {
+        return $this->model
+            ->with('category')  
+            ->latest()
+            ->paginate($limit);
     }
 }
