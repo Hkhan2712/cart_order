@@ -26,6 +26,8 @@
                 </div>
             </div>
         </div>
+    {{-- Toast --}}
+    @include('components.toast')
     @include('admin.partials.scripts')
     </body>
 </html>

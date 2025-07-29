@@ -32,5 +32,28 @@ class Category extends Model
         return null;
     }
 
+    public function getDepthAttribute()
+    {
+        return substr_count($this->path, '/');
+    }
+
+    public function getParentIdAttribute(): ?int
+    {
+        if (!$this->path || $this->path === "/{$this->id}") {
+            return null;
+        }
+
+        $segments = explode('/', trim($this->path, '/'));
+        $parentId = count($segments) >= 2 ? $segments[count($segments) - 2] : null;
+
+        return $parentId ? (int) $parentId : null;
+    }
+
+
+    public function getIsRootAttribute()
+    {
+        return $this->depth === 1;
+    }
+
 }
 
