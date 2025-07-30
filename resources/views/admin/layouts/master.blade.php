@@ -21,9 +21,9 @@
             <div class="content-wrapper">
                 @yield('content')
 
-                <div class="d-flex justify-content-center">
-                    @include('admin.partials.footer')
-                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                @include('admin.partials.footer')
             </div>
         </div>
     {{-- Toast --}}

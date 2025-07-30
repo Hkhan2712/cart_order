@@ -28,11 +28,10 @@ class CategoryRepo extends BaseRepo
             ->get();
     }
     
-    public function getAllWithProductCount(): \Illuminate\Support\Collection
+    public function getAllWithProductCountPaginated(int $limit = 10)
     {
-        return Category::withCount('products')
-            ->orderBy('path')
-            ->get();
+        return $this->model->withCount('products')
+                ->latest()->paginate($limit);
     }
     public function attachParentsToCategories($categories)
     {

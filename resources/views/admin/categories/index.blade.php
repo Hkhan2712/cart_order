@@ -25,9 +25,11 @@
 
             <!-- Add Button -->
             <div class="mb-3">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCategoryModal">
-                    <i class="fas fa-plus"></i> Add New Category
-                </button>
+                <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+						<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+					</svg> Add New Product
+				</a>
             </div>
 
             <!-- Category Table -->
@@ -50,20 +52,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($tree as $category)
-                                @include('admin.categories.partials.category-row', ['category' => $category, 'depth' => 0])
-                            @empty
-                                <tr><td colspan="8" class="text-center">No categories found.</td></tr>
-                            @endforelse
+                            @foreach($categories as $category)
+                                <tr>
+                                    <td>{{ $category->id }}</td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>{{ $category->slug }}</td>
+                                    <td>-</td> <!-- Chưa có parent -->
+                                    <td>{{ $category->products_count ?? 0 }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ $category->status ? 'success' : 'secondary' }}">
+                                            {{ $category->status ? 'Active' : 'Inactive' }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $category->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                        <button data-id="{{ $category->id }}" class="btn btn-sm btn-danger btn-delete">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
+
                     </table>
+                        <div class="mt-3 px-3">
+                            {{ $categories->links() }}
+                        </div>
                 </div>
             </div>
 
         </div>
     </div>
 </main>
-@include('admin.categories.partials.confirm-modal')
-@include('admin.categories.partials.create-modal')
-@include('admin.categories.partials.edit-modal')
+@include('admin.components.confirm-modal')
 @endsection

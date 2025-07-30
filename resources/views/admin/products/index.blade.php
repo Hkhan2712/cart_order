@@ -85,6 +85,7 @@
                                 <tr><td colspan="8" class="text-center">No products found.</td></tr>
                             @endforelse
                         </tbody>
+                        
                     </table>
                     <div class="mt-3 px-3">
                         {{ $products->links() }}
@@ -94,8 +95,5 @@
         </div>
     </div>
 </main>
-
-@include('admin.categories.partials.create-modal')
-@include('admin.categories.partials.edit-modal')
 @include('admin.components.confirm-modal')
 @endsection
