@@ -30,7 +30,7 @@ class ProductRepo extends BaseRepo
 
     public function getAllProductsActive() {
         return $this->model
-                    ->where('status', 1)
+                    ->active()
                     ->get();
     }
     public function createProductWithDetails(array $data): Product
@@ -121,14 +121,17 @@ class ProductRepo extends BaseRepo
     {
         return $this->baseQuery()
             ->withCount('orderItems')
+            ->active()
             ->orderByDesc('order_items_count')
             ->limit($limit)
             ->get();
     }
 
+
     public function orderByViewDesc(int $limit = 10): Collection
     {
         return $this->baseQuery()
+            ->active()
             ->orderByDesc('view_count')
             ->limit($limit)
             ->get();
@@ -137,6 +140,7 @@ class ProductRepo extends BaseRepo
     public function latestByCreatedAt(int $limit = 10): Collection
     {
         return $this->baseQuery()
+            ->active()
             ->latest()
             ->limit($limit)
             ->get();
@@ -145,14 +149,17 @@ class ProductRepo extends BaseRepo
     public function getFeaturedProducts(int $limit = 10): Collection
     {
         return $this->baseQuery()
+            ->active()
             ->orderByDesc('reviews_avg_rating')
             ->limit($limit)
             ->get();
     }
 
-    public function where(array $conditions, int $limit = 10): Collection
+
+    public function where(array $conditions, int $limit = 10, array $with = []): Collection
     {
         return $this->baseQuery()
+            ->with($with)
             ->where($conditions)
             ->limit($limit)
             ->get();
@@ -162,6 +169,7 @@ class ProductRepo extends BaseRepo
     {
         return $this->model
             ->with(['detail', 'reviews.images', 'images'])
+            ->active()
             ->where('slug', $slug)
             ->firstOrFail();
     }
@@ -196,7 +204,7 @@ class ProductRepo extends BaseRepo
     public function getProductsWithPaginate($limit = 20)
     {
         return $this->model
-            ->with('category')  
+            ->with('category')
             ->latest()
             ->paginate($limit);
     }

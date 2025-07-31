@@ -8,8 +8,15 @@ use Illuminate\Support\Facades\Storage;
 
 class Category extends Model
 {
-    protected $fillable = ['name', 'thumbnail', 'slug', 'path'];
-
+    protected $fillable = [
+        'name',
+        'slug',
+        'thumbnail',
+        'banner',
+        'status',
+        'path',
+    ];
+    
     public function products() { return $this->hasMany(Product::class); }
 
     public function getThumbnailUrlAttribute(): string

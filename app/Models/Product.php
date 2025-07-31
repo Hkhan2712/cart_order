@@ -27,6 +27,11 @@ class Product extends Model
 
     public function cartItems() { return $this->hasMany(CartItem::class); }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
     public function getImagePathAttribute(): string
     {
         $this->loadMissing('images');

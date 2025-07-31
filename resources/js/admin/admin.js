@@ -1,9 +1,4 @@
-/*!
- * AdminLTE v4.0.0-rc4 (https://adminlte.io)
- * Copyright 2014-2025 Colorlib <https://colorlib.com>
- * Licensed under MIT (https://github.com/ColorlibHQ/AdminLTE/blob/master/LICENSE)
- */
-import './categories.js';
+import './utils.js';
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -1195,4 +1190,3 @@ import './categories.js';
     exports.initAccessibility = initAccessibility;
 
 }));
-//# sourceMappingURL=adminlte.js.map

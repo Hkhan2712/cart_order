@@ -2,6 +2,8 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryRepo extends BaseRepo 
 {
@@ -72,22 +74,59 @@ class CategoryRepo extends BaseRepo
             ->orderByRaw("FIELD(id, " . implode(',', $ids) . ")")
             ->get();
     }
-    
-    public function buildTree($categories, $parentId = null): array
+    public function createWithUpload(array $data): Category
     {
-        $tree = [];
+        $data['slug'] = $data['slug'] ?? Str::slug($data['name']);
 
-        foreach ($categories as $category) {
-            if ($category->parent_id === $parentId) {
-                $children = $this->buildTree($categories, $category->id);
-                if ($children) {
-                    $category->children = $children;
-                }
-                $tree[] = $category;
-            }
+        if (isset($data['thumbnail']) && $data['thumbnail'] instanceof \Illuminate\Http\UploadedFile) {
+            $data['thumbnail'] = $data['thumbnail']->store('categories', 'public');
         }
 
-        return $tree;
+        if (isset($data['banner']) && $data['banner'] instanceof \Illuminate\Http\UploadedFile) {
+            $data['banner'] = $data['banner']->store('categories', 'public');
+        }
+
+        return $this->create($data);
+    }
+
+    public function updateWithUpload($id, array $data): Category
+    {
+        $category = $this->findById($id);
+
+        $data['slug'] = $data['slug'] ?? Str::slug($data['name']);
+
+        if (isset($data['thumbnail']) && $data['thumbnail'] instanceof \Illuminate\Http\UploadedFile) {
+            if ($category->thumbnail) {
+                Storage::disk('public')->delete($category->thumbnail);
+            }
+            $data['thumbnail'] = $data['thumbnail']->store('categories', 'public');
+        }
+
+        if (isset($data['banner']) && $data['banner'] instanceof \Illuminate\Http\UploadedFile) {
+            if ($category->banner) {
+                Storage::disk('public')->delete($category->banner);
+            }
+            $data['banner'] = $data['banner']->store('categories', 'public');
+        }
+
+        $category->update($data);
+
+        return $category;
+    }
+
+    public function deleteWithMedia($id): bool
+    {
+        $category = $this->findById($id);
+
+        if ($category->thumbnail) {
+            Storage::disk('public')->delete($category->thumbnail);
+        }
+
+        if ($category->banner) {
+            Storage::disk('public')->delete($category->banner);
+        }
+
+        return $this->delete($id);
     }
 
 }

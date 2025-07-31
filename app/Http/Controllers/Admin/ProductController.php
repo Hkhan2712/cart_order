@@ -7,7 +7,6 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Repositories\CategoryRepo;
 use App\Repositories\ProductRepo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
@@ -60,12 +59,30 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
-
-
-
+    
     public function destroy(Product $product)
     {
-        $this->productRepo->delete($product->id);
-        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+        try {
+            $this->productRepo->delete($product->id);
+
+            if (request()->expectsJson()) {
+                return response()->json([
+                    'message' => 'Product deleted successfully.'
+                ]);
+            }
+
+            return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+        } catch (\Throwable $e) {
+            Log::error('Delete product failed: ' . $e->getMessage());
+
+            if (request()->expectsJson()) {
+                return response()->json([
+                    'message' => 'Failed to delete product.'
+                ], 500);
+            }
+
+            return redirect()->back()->with('error', 'Failed to delete product.');
+        }
     }
+
 }
