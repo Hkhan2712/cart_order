@@ -208,4 +208,14 @@ class ProductRepo extends BaseRepo
             ->latest()
             ->paginate($limit);
     }
+
+   public function getTotalProductsByCategories()
+    {
+        return DB::table('products')
+            ->select('categories.name as category_name', DB::raw('COUNT(products.id) as total'))
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->groupBy('categories.name')
+            ->orderBy('total', 'desc')
+            ->get();
+    }
 }

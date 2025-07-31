@@ -7,20 +7,24 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Repositories\CategoryRepo;
 use App\Repositories\ProductRepo;
+use App\Repositories\OrderRepo;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
     public function __construct(
         protected ProductRepo $productRepo,
-        protected CategoryRepo $categoryRepo
+        protected CategoryRepo $categoryRepo,
+        protected OrderRepo $orderRepo,
     ) {}
 
     public function index()
     {
         $products = $this->productRepo->getProductsWithPaginate(10);
+        $categoryStats = $this->productRepo->getTotalProductsByCategories();
         $allCategories = $this->categoryRepo->all();
-        return view('admin.products.index', compact('products', 'allCategories'));
+        $salesData = $this->orderRepo->getMonthlySalesData();
+        return view('admin.products.index', compact('products', 'allCategories', 'categoryStats', 'salesData'));
     }
 
     public function create()

@@ -10,8 +10,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/css/admin/admin.css',
                 'resources/js/admin/admin.js',
-                'resources/js/admin/categories.js',
-                'resources/js/admmin/products.js'
+                'resources/js/admin/charts/products-by-category.js',
+                'resources/js/admin/charts/monthly-sales.js',
             ],
             refresh: true,
         }),

@@ -57,4 +57,15 @@ class OrderRepo extends BaseRepo
 
         return $data;
     }
+
+    public function getMonthlySalesData($months = 12):array {
+        return $this->model
+                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, SUM(total_amount) as total')
+                ->where('order_status', 'completed')
+                ->where('created_at', '>=', now()->subMonths($months))
+                ->groupBy('month')
+                ->orderBy('month')
+                ->pluck('total', 'month')
+                ->toArray();
+    } 
 }

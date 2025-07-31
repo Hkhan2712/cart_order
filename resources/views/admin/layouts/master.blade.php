@@ -7,9 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @vite([
             'resources/css/app.css', 
-            'resources/js/app.js',
             'resources/css/admin/admin.css',
-            'resources/js/admin/admin.js'
             ])
         @stack('styles')
     </head>
@@ -31,4 +29,8 @@
     @include('components.toast')
     @include('admin.partials.scripts')
     </body>
+    @vite([
+    'resources/js/app.js',
+    'resources/js/admin/admin.js'
+    ])
 </html>

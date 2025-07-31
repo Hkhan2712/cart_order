@@ -22,18 +22,55 @@
 
     <div class="app-content">
         <div class="container-fluid">
+            {{-- Product Chart --}}
+            <div class="row my-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Total Products by Category</h5>
+                        </div>
+                        <div class="card-body" style="position: relative; max-height: 500px;">
+                            <canvas id="productsByCategoryChart" class = "w-100"
+                                data-chart='@json([
+                                    'labels' => $categoryStats->pluck("category_name"),
+                                    'counts' => $categoryStats->pluck("total")
+                                ])'>
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="mb-3 d-flex justify-content-end">
-                <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-						<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-					</svg> Add New Product
-				</a>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Another Chart</h5>
+                        </div>
+                        <div class="card-body">
+                            @php
+                                $months = array_keys($salesData);
+                                $totals = array_values($salesData);
+                            @endphp
+                            <canvas id="productCategoryChart2" class="w-100"
+                                data-chart='@json([
+                                    'labels' => $months,
+                                    'data' => $totals 
+                                ])'
+                                >
+                                
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex align-items-center px-5">
                     <h5 class="card-title">Product List</h5>
+                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary d-flex ms-auto align-items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                        </svg> Add New Product
+                    </a>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
@@ -97,3 +134,5 @@
 </main>
 @include('admin.components.confirm-modal')
 @endsection
+@vite('resources/js/admin/charts/products-by-category.js')
+@vite('resources/js/admin/charts/monthly-sales.js')
