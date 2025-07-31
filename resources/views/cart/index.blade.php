@@ -118,7 +118,7 @@
                             <span><strong class="cart-total-vat">{{ number_format($total['totalWithVAT'], 0, ',', '.') }}₫</strong></span>
                             </li>
                         </ul>
-                        <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-lg btn-block">
+                        <a href="{{ route('order.index') }}" class="btn btn-primary btn-lg btn-block">
                             Go to checkout
                         </a>
                     </div>

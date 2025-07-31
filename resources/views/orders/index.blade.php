@@ -13,11 +13,11 @@
     <div class="row">
         {{-- LEFT: Billing, Shipping, Payment --}}
         <div class="col-xl-8">
-            @include('checkout.partials.checkout-info');
+            @include('orders.partials.order-info');
         </div>
         {{-- RIGHT: Order Summary --}}
         <div class="col-xl-4">
-            @include('checkout.partials.order-summary', ['cartItems' => $cartItems])
+            @include('orders.partials.order-summary', ['cartItems' => $cartItems])
         </div>
     </div>
 </div>

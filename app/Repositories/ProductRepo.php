@@ -209,7 +209,7 @@ class ProductRepo extends BaseRepo
             ->paginate($limit);
     }
 
-   public function getTotalProductsByCategories()
+    public function getTotalProductsByCategories()
     {
         return DB::table('products')
             ->select('categories.name as category_name', DB::raw('COUNT(products.id) as total'))
@@ -217,5 +217,14 @@ class ProductRepo extends BaseRepo
             ->groupBy('categories.name')
             ->orderBy('total', 'desc')
             ->get();
+    }
+
+    public function decreaseStock($id, $quantity) {
+        $product = $this->model->findOrFail($id);
+        if ($product->stock_quantity < $quantity) {
+            throw new \RuntimeException("Quantity stock not enough for : {$product->name}");
+        }
+        $product->stock_quantity -= $quantity;
+        return $product->save();
     }
 }

@@ -49,7 +49,7 @@ Route::prefix('cart')->name('cart.')->group(function () {
 
 // Checkout 
 // Route::get('/checkout', [OrderViewController::class, 'index'])->name('checkout.index');
-Route::prefix('checkout')->name('checkout.')->group(function () {
+Route::prefix('order')->name('order.')->group(function () {
     Route::get('/', [OrderViewController::class, 'index'])->name('index');
     Route::post('/process', [OrderViewController::class, 'process'])->name('process');
 });

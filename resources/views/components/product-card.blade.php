@@ -21,7 +21,7 @@
                     </a>
                 </div>
                 <div class="col-2">
-                    <a href="#" class="btn btn-outline-dark btn-cart rounded-1 p-2 fs-6">
+                    <a href="#" class="btn btn-outline-dark btn-cart rounded-1 p-2 fs-7 d-flex align-items-center justify-content-center">
                         <svg width="18" height="18"><use xlink:href="#heart"></use></svg>
                     </a>
                 </div>

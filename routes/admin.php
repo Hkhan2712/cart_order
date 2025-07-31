@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\ShippingProviderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\CheckRole;
 
-Route::domain('admin.localhost')->name('admin.')->middleware('web')->group(function () {
+Route::domain('admin.aquaterra.com')->name('admin.')->middleware('web')->group(function () {
     // Auth routes
     Route::get('/', [AuthController::class, 'showLoginForm'])->name('login.form');
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');

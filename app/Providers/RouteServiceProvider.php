@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::middleware('web')
-            ->domain('admin.localhost')
+            ->domain('admin.aquaterra.com')
             ->group(base_path('routes/admin.php'));
 
         Route::middleware('web')
