@@ -1,4 +1,4 @@
-<form action="{{ route('order.process') }}" method="POST">
+<form id="order-form" action="{{ route('order.process') }}" method="POST">
     @csrf
 
     <div class="card">
@@ -129,7 +129,7 @@
             </a>
         </div>
         <div class="col text-end">
-            <button type="submit" class="btn btn-lg btn-primary">
+            <button form="order-form" type="submit" class="btn btn-lg btn-primary">
                 <i class="mdi mdi-cart-outline me-1"></i> Order Now
             </button>
         </div>

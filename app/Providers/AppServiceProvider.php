@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\UserAddressRepo;
+use App\Services\Shipping\ShippingFeeCalculator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 

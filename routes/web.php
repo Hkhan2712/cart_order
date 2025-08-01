@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\CartViewController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\UserAddressController;
 use App\Http\Controllers\Web\OrderViewController;
+use App\Http\Controllers\Web\CheckoutController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -47,7 +48,11 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('/update', [CartController::class, 'update'])->name('update');
 });
 
-// Checkout 
+// Checkout
+Route::prefix('checkout')->name('checkout')->group( function() {
+    Route::get('/', [CheckoutController::class, 'success'])->name('success');
+    Route::post('/payment', [CheckoutController::class, 'payment'])->name('payment');
+}); 
 // Route::get('/checkout', [OrderViewController::class, 'index'])->name('checkout.index');
 Route::prefix('order')->name('order.')->group(function () {
     Route::get('/', [OrderViewController::class, 'index'])->name('index');

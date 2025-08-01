@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\Product;
 use App\Repositories\CartRepo;
 use App\Services\CartContextResolver;
+use Exception;
 
 class CartService extends Service
 {
@@ -17,21 +18,33 @@ class CartService extends Service
         $cart = $this->cartRepo->loadCartRelations(
             $this->context->resolve()
         );
-        $items = $cart->items->map(fn ($item) => [
-            'product_id' => $item->product_id,
-            'name' => $item->product->name,
-            'price' => $item->product->price,
-            'quantity' => $item->quantity,
-            'sale_price' => $item->product->sale_price ?? 0,
-            'slug' => $item->product->slug,
-            'subtotal' => $item->price * $item->quantity,
-            'image' => $item->product->image_path,
-        ]);
+
+        $items = $cart->items->map(function ($item) {
+            $product = $item->product;
+
+            $convertedWeight = $this->convertUnitToGram($product->weight, $product->unit);
+            $totalWeight = $convertedWeight * $item->quantity;
+
+            return [
+                'product_id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'quantity' => $item->quantity,
+                'sale_price' => $product->sale_price ?? 0,
+                'slug' => $product->slug,
+                'subtotal' => $item->price * $item->quantity,
+                'image' => $product->image_path,
+                'weight' => $convertedWeight,
+                'total_weight' => $totalWeight,
+                'unit' => $product->unit,
+            ];
+        });
 
         return (object)[
             'items' => $items,
             'total' => $items->sum(fn ($i) => $i['subtotal']),
             'items_count' => $items->count(),
+            'total_weight' => $items->sum(fn ($i) => $i['total_weight']),
         ];
     }
 
@@ -104,5 +117,15 @@ class CartService extends Service
         $totalWithVAT = $total + $vat;
 
         return compact('vat', 'totalWithVAT');
+    }
+
+    protected function convertUnitToGram($value, string $unit) {
+        return match(strtolower($unit)) {
+            'g' => $value,
+            'kg' => $value * 1000,
+            'ml' => $value,
+            'l' => $value * 1000,
+            default => throw new Exception("Unknown unit: $unit"),
+        };
     }
 }

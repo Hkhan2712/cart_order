@@ -21,14 +21,22 @@ class OrderViewController extends Controller {
         ]);
     }
 
-    public function process(CheckoutRequest $request) {
-        $order = $this->orderService->createOrder($request->validated());
+    public function process(CheckoutRequest $request)
+    {
+        $data = $request->validated();
+        dd($data);
+        $order = $this->orderService->createOrder($data);
 
-        if ($request->input('pay-method') !== 'cod') {
+        if (!$order) {
+            return back()->withErrors(['error' => 'Could not create order.']);
+        }
+
+        if ($data['payment_method'] !== 'cod') {
             return redirect()->route('payment.redirect', ['order_id' => $order->id]);
         }
 
         $this->cartService->clearCart();
+
         return redirect()->route('checkout.success')->with('order', $order);
     }
 }

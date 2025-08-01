@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\ShippingProviderFeeSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,9 +18,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProductSeeder::class);
         // $this->call(ProductImageSeeder::class);
         // $this->call(ProductDetailSeeder::class);
-        $this->call([
-            RoleSeeder::class,
-            PermissionSeeder::class,
-        ]);
+        // $this->call([
+        //     RoleSeeder::class,
+        //     PermissionSeeder::class,
+        // ]);
+        $this->call(ShippingProviderFeeSeeder::class);
     }
 }
